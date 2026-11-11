@@ -1637,9 +1637,33 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
       qtyInput.focus();
       return;
     }
-    // TODO: replace with your WordPress form handler / AJAX endpoint
-    cfMsg.classList.add('active');
-    buyForm.querySelector('button[type="submit"]').style.display = 'none';
+    // Send the enquiry to the company inbox (see assets/forms.js)
+    var btn = buyForm.querySelector('button[type="submit"]');
+    if (!window.vnEnquiry) { alert('Sorry, the form could not be sent. Please email info@vividnutripharm.com.'); return; }
+    var val = function(id){ var el = document.getElementById(id); return el ? el.value : ''; };
+    var text = function(id){ var el = document.getElementById(id); return el && el.selectedIndex >= 0 ? el.options[el.selectedIndex].text : ''; };
+    var product = text('cf-product');
+    vnEnquiry.showError(btn, false);
+    vnEnquiry.setSending(btn, true);
+    vnEnquiry.send({
+      'Enquiry type': 'Bulk quote request',
+      'Name': val('cf-name'),
+      'Product': product,
+      'Quantity': val('cf-qty') + ' ' + text('cf-unit'),
+      'Mobile': val('cf-mobile'),
+      'email': val('cf-email'),
+      'Delivery location': val('cf-location'),
+      'Page': document.title
+    }, 'Quote request: ' + product + ' (website)')
+      .then(function(){
+        vnEnquiry.setSending(btn, false);
+        cfMsg.classList.add('active');
+        btn.style.display = 'none';
+      })
+      .catch(function(){
+        vnEnquiry.setSending(btn, false);
+        vnEnquiry.showError(btn, true);
+      });
   });
 })();
 </script>
@@ -2034,6 +2058,7 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
   .sysmap-claim { flex-wrap: wrap; max-width: 100%; }
 }
 </style>
+<script src="assets/forms.js"></script>
 </body>
 </html>
 

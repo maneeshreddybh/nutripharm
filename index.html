@@ -2428,16 +2428,33 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
                 return;
             }
 
-            /* ---- Hook up real submission here ----
-            var data = new FormData(form);
-            fetch('YOUR_FORM_ENDPOINT_URL', { method: 'POST', body: data })
-              .then(function (res) { ... })
-              .catch(function (err) { ... });
-            ------------------------------------------ */
-
-            success.classList.add('vcf-success-show');
-            form.reset();
-            success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Send the enquiry to the company inbox (see assets/forms.js)
+            var btn = form.querySelector('button[type="submit"]');
+            if (!window.vnEnquiry) { alert('Sorry, the form could not be sent. Please email info@vividnutripharm.com.'); return; }
+            var f = form.elements;
+            var interest = f['interest'];
+            vnEnquiry.showError(success, false);
+            vnEnquiry.setSending(btn, true);
+            vnEnquiry.send({
+                'Enquiry type': 'General enquiry',
+                'Name': f['name'].value,
+                'email': f['email'].value,
+                'Phone': f['phone'].value,
+                'Company': f['company'].value,
+                'Interested in': interest && interest.value ? interest.options[interest.selectedIndex].text : '',
+                'Message': f['message'].value,
+                'Page': document.title
+            }, 'New enquiry from ' + f['name'].value + ' (website)')
+                .then(function () {
+                    vnEnquiry.setSending(btn, false);
+                    success.classList.add('vcf-success-show');
+                    form.reset();
+                    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                })
+                .catch(function () {
+                    vnEnquiry.setSending(btn, false);
+                    vnEnquiry.showError(success, true);
+                });
         });
     })();
 </script>
@@ -2830,6 +2847,7 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
   .sysmap-claim { flex-wrap: wrap; max-width: 100%; }
 }
 </style>
+<script src="assets/forms.js"></script>
 </body>
 </html>
 

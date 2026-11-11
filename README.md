@@ -63,8 +63,7 @@ http://localhost:8000
 
 ## Known limitations
 
-- Contact and enquiry forms currently validate and reset without submitting data.
-- The form behavior is still a placeholder and is not fully wired to a backend or email service.
+- Contact, home page and product quote forms send enquiries to info@vividnutripharm.com through FormSubmit (`assets/forms.js`). The first submission triggers a one-time activation email to that inbox; enquiries are only delivered after the link in it is clicked.
 - For direct contact, use the published phone numbers or the email address `info@vividnutripharm.com`.
 
 ## Deployment
