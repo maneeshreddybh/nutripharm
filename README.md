@@ -27,7 +27,11 @@ The static marketing website for **Vivid Nutripharm**, a nutraceutical manufactu
 │   ├── cert-orbit.css               # Styles for the certification badge orbit
 │   ├── product-disc.png, cordyceps-subject.png, product-lifecycle.png,
 │   │   certification-badges-transparent.png
-│   └── products/                    # Local product and hero images (sprays, tinctures, phytosomes, effervescents, Cordyceps)
+│   ├── products/                    # Local product and hero images (sprays, tinctures, phytosomes, effervescents, Cordyceps)
+│   └── wp/                          # Files copied from the original WordPress site
+│       ├── uploads/2026/07, 08/     #   Product, category, process, team, facility and certification images
+│       ├── themes/astra/            #   Astra theme CSS (main.min.css) and JS (frontend.min.js)
+│       └── includes/js/             #   WordPress emoji scripts
 ├── VERSION
 ├── .nojekyll                        # Tells GitHub Pages to serve files as-is
 └── .gitignore
@@ -75,19 +79,16 @@ The `id` values come from each page's `products` array (listed in the table abov
 - **Product copy, specs and ingredients:** edit the `products` array near the bottom of the category page. The grid, modal and quote form all read from it.
 - **FAQs:** category pages render their FAQ list from inline data into `#faq-list`.
 - **Cordyceps benefits:** the interactive system map in `durt-cordyceps-range.html` is driven by an inline list of benefit entries (`title` and description). Alternative layouts are kept in `design-explorations/`.
-- **Images:** put new local images under `assets/products/`. When you replace an image that browsers have already cached, add a cache-busting query (for example `?v=2`).
+- **Images:** put new local images under `assets/products/`. Images copied from WordPress are under `assets/wp/uploads/`. When you replace an image that browsers have already cached, add a cache-busting query (for example `?v=2`).
 - **Shared header and footer:** these are duplicated in every HTML file. A change to navigation, contact details or the footer has to be made in each page.
 
 ## External dependencies
 
-The pages are not fully self-contained:
+All styles, scripts and images are stored in this repository. The original WordPress files live under `assets/wp/`, so the site no longer depends on the WordPress host. The only outside services are:
 
-- **WordPress host:** many stylesheets, scripts and images (including most product images on the category pages) still load from `skyblue-echidna-752271.hostingersite.com`. If that site goes down or changes, those assets break.
 - **Google Fonts:** loaded from `fonts.googleapis.com` and `fonts.gstatic.com`.
 - **Google Maps:** contact and footer address links open Google Maps.
 - **Social links:** Facebook, Instagram, LinkedIn and X/Twitter.
-
-To make the site self-contained, download the referenced `wp-content` assets into `assets/` and rewrite the URLs.
 
 ## Forms
 
@@ -122,5 +123,6 @@ To release:
 - Header and footer markup is copied into every page, so the pages can drift apart.
 - `solutions.html` is about 1 MB because it embeds three base64 JPEG images. Moving them into `assets/` would make the page much lighter.
 - The Cordyceps products section heading says "Seven forms", but the page now lists six products, since Dried Cordyceps Powder was removed.
-- The remaining WordPress assets are an external dependency (see above).
+- The footer **Privacy Policy** and **Terms & Conditions** links still point to the old WordPress host, and both pages return 404 there. They need real pages added to this repo.
+- Many images in `assets/wp/uploads/` are 1–2 MB PNGs (about 40 MB in total). Compressing them or converting them to WebP would make pages load much faster.
 - Forms are placeholders (see above).
