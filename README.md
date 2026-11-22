@@ -1,72 +1,126 @@
 # Vivid Nutripharm
 
-Version: 1.1.0
+Version: 1.1.0 (see `VERSION`)
 
-A static marketing website for Vivid Nutripharm, based on the live WordPress site and prepared for GitHub Pages hosting.
+The static marketing website for **Vivid Nutripharm**, a nutraceutical manufacturing partner. It covers private label, white label and bulk-ingredient work. The site started as a mirror of the live WordPress build and has been extended by hand. It is plain HTML, CSS and JavaScript with no build step, and is set up for GitHub Pages.
 
-## Project purpose
+## Repository layout
 
-This repository contains a front-end mirror of the public Vivid Nutripharm website. The pages are static HTML files that preserve the original product structure, category layout, and content flow while making the site easier to host and maintain.
+```text
+.
+├── index.html                       # Home
+├── about-us.html                    # About Us
+├── solutions.html                   # Solutions (private / white label paths)
+├── contact.html                     # Contact + enquiry form
+├── durt-cordyceps-range.html        # Cordyceps bulk range + benefits system map
+├── chronic-disease-management.html  # Category page
+├── mens-sexual-wellness.html        # Category page
+├── women-wellness.html              # Category page
+├── oral-sprays-2.html               # Category page
+├── effervescent.html                # Category page
+├── phytosomes.html                  # Category page
+├── mushroom-tinctures.html          # Category page
+├── single-extracts.html             # Category page ("Wellness essentials")
+├── design-explorations/
+│   └── cordyceps-benefits-variants.html  # Design sandbox: four alternative Cordyceps benefit layouts (not linked from the site)
+├── assets/
+│   ├── cert-orbit.css               # Styles for the certification badge orbit
+│   ├── product-disc.png, cordyceps-subject.png, product-lifecycle.png,
+│   │   certification-badges-transparent.png
+│   └── products/                    # Local product and hero images (sprays, tinctures, phytosomes, effervescents, Cordyceps)
+├── VERSION
+├── .nojekyll                        # Tells GitHub Pages to serve files as-is
+└── .gitignore
+```
 
-## Included pages
+## Pages
 
-| Page | File |
-|---|---|
-| Home | `index.html` |
-| About Us | `about-us.html` |
-| Solutions | `solutions.html` |
-| Contact | `contact.html` |
-| Cordyceps Range | `durt-cordyceps-range.html` |
-| Mushroom Tinctures | `mushroom-tinctures.html` |
-| Oral Sprays | `oral-sprays-2.html` |
-| Phytosomes | `phytosomes.html` |
-| Chronic Disease Management | `chronic-disease-management.html` |
-| Men's Sexual Wellness | `mens-sexual-wellness.html` |
-| Women Wellness | `women-wellness.html` |
-| Effervescent | `effervescent.html` |
-| Wellness essentials | `single-extracts.html` |
+### Company pages
 
-The product catalog spans multiple category pages, with product detail panels triggered from the listing views. Product tiles can deep-link directly to a specific item using the pattern `page.html#product-id`.
+| Page | File | Notes |
+|---|---|---|
+| Home | `index.html` | Hero, capabilities, technology platforms, process graphic (inline SVG), reviews, team, facilities, certifications, contact form |
+| About Us | `about-us.html` | Company story, quality standards, integrated capabilities, approach |
+| Solutions | `solutions.html` | Two solution paths, partner types, development journey, categories, delivery formats |
+| Contact | `contact.html` | Contact details, map links, enquiry form |
 
-Recent content updates standardize the public product branding across the homepage and category pages, including the chronic disease brands Pronefros, Diastat-V, Mobivive, Respran, Tarnil, Lipoblitz, Dozein, V-Sinura, Fix & Flexx, and Vivacio. The men’s and women’s wellness ranges also include their updated branded product names and formulation copy.
+### Product range pages
 
-## Design notes
+Each category page builds its product grid from a `products` array in an inline `<script>`. Each entry holds `id`, `name`, `img`, `specs`, `cardDesc`, `desc`, `meta` and `ingredients`. Clicking a card opens a detail modal, and **Request a quote** opens the enquiry modal.
 
-- The homepage process graphic and the Cordyceps benefits illustration are rebuilt as inline SVG rather than flattened images.
-- These vector graphics remain crisp at any zoom level and are much lighter than the original raster assets.
-- Supporting images used in the design are stored under `assets/`.
+| Page | File | Products |
+|---|---|---|
+| Cordyceps Range | `durt-cordyceps-range.html` | 6: Filaments (dried fruiting bodies), Double Extract Tincture (Cordy Amrit), Extract Powder (Cordy Maxx), Tablets/Capsules (Eucordy), Cordyceps + Green tea (Aarogya), Cordyceps + Coffee (Cordy Verve) |
+| Chronic Disease Management | `chronic-disease-management.html` | 10: Pronefros, Diastat-V, Mobivive, Respran, Tarnil, Lipoblitz, Dozein, V-Sinura, Fix & Flexx, Vivacio |
+| Men's Sexual Wellness | `mens-sexual-wellness.html` | 5: Naturise, Eternax, Gear Up, 'Y' Vibe, Axtro-T |
+| Women Wellness | `women-wellness.html` | 4: Ovalush, Pristine-V, Ovabliss, Luminova |
+| Oral Sprays | `oral-sprays-2.html` | 13: Vitamin D3K2, Multivitamin, Vitamin C, Iron, ZMA, Sleep, Mind Focus, ED, Testoboost, VO2 Maxx, Smoker's Cough, Dry Mouth, Biotin |
+| Effervescent | `effervescent.html` | 4: Instant Sex Drive, Gut Health Probiotics, Weight Loss Probiotics, Molecular Hydrogen |
+| Phytosomes | `phytosomes.html` | 3: Phytocurcumin, Phytoberine, Phytomarin |
+| Mushroom Tinctures | `mushroom-tinctures.html` | 3: Cordyceps (Cordy Amrit), Lion's Mane, Reishi |
+| Wellness essentials | `single-extracts.html` | 10: Ashwagandha, Cordy curcumin+, Punarnava, Vasaka, Hing, Triple Magnesium, Omega-3, Digestive Mints, Energy Booster, Revitacel |
 
-## Dependencies and hosting
+### Deep links
 
-Most CSS, JavaScript, and image assets are loaded from the live WordPress site at `skyblue-echidna-752271.hostingersite.com`. That means the static pages depend on the external site for non-local styling and scripts.
+A product's detail modal can be opened straight from a URL with `page.html#product-id`. The pages listen for `hashchange`, so the links work on load and while the page is open. For example:
 
-A few local assets are included in this repo, such as:
+- `chronic-disease-management.html#ckd`
+- `oral-sprays-2.html#vitamin-d3k2`
+- `single-extracts.html#hing`
 
-- `assets/product-disc.png`
-- `assets/cordyceps-subject.png`
+The `id` values come from each page's `products` array (listed in the table above by name).
 
-The site also includes the updated “Wellness essentials” range, Cordyceps products named Cordyceps extract + Green tea (Aarogya) and Cordyceps extract + Coffee (Cordy Verve), and homepage review content.
+## Editing content
+
+- **Product copy, specs and ingredients:** edit the `products` array near the bottom of the category page. The grid, modal and quote form all read from it.
+- **FAQs:** category pages render their FAQ list from inline data into `#faq-list`.
+- **Cordyceps benefits:** the interactive system map in `durt-cordyceps-range.html` is driven by an inline list of benefit entries (`title` and description). Alternative layouts are kept in `design-explorations/`.
+- **Images:** put new local images under `assets/products/`. When you replace an image that browsers have already cached, add a cache-busting query (for example `?v=2`).
+- **Shared header and footer:** these are duplicated in every HTML file. A change to navigation, contact details or the footer has to be made in each page.
+
+## External dependencies
+
+The pages are not fully self-contained:
+
+- **WordPress host:** many stylesheets, scripts and images (including most product images on the category pages) still load from `skyblue-echidna-752271.hostingersite.com`. If that site goes down or changes, those assets break.
+- **Google Fonts:** loaded from `fonts.googleapis.com` and `fonts.gstatic.com`.
+- **Google Maps:** contact and footer address links open Google Maps.
+- **Social links:** Facebook, Instagram, LinkedIn and X/Twitter.
+
+To make the site self-contained, download the referenced `wp-content` assets into `assets/` and rewrite the URLs.
+
+## Forms
+
+None of the forms send data yet:
+
+- **Contact forms** (`index.html`, `contact.html`) validate input, show a success message and reset.
+- **Request a quote** modals (all category pages) enforce minimum order quantities of **10 kg** for bulk units and **500 units** for finished units, then show a confirmation. The submit handlers contain a `TODO` to connect a WordPress form handler or AJAX endpoint.
+
+Until a backend is connected, enquiries should go to `info@vividnutripharm.com` / `marketing@vividnutripharm.com` or the phone numbers on the Contact page.
 
 ## Local preview
 
-To preview the site locally, run a simple static server from the project root:
+Run a static server from the project root:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Then open:
-
-```text
-http://localhost:8000
-```
-
-## Known limitations
-
-- Contact and enquiry forms currently validate and reset without submitting data.
-- The form behavior is still a placeholder and is not fully wired to a backend or email service.
-- For direct contact, use the published phone numbers or the email address `info@vividnutripharm.com`.
+Then open <http://localhost:8000>. Use a server rather than opening files with `file://`, so relative paths and hash deep links behave as they do in production.
 
 ## Deployment
 
-This repo is intended for GitHub Pages deployment as a static site. For production hosting, make sure the site is configured to serve the root folder and preserve relative paths for assets and pages.
+The site is deployed with GitHub Pages from the repository root. `.nojekyll` stops Jekyll from processing the files. All internal links are relative, so the site also works from a project sub-path.
+
+To release:
+
+1. Update `VERSION` (and the version line at the top of this README) for notable changes.
+2. Merge to the default branch. GitHub Pages republishes automatically.
+
+## Known issues and cleanup opportunities
+
+- Header and footer markup is copied into every page, so the pages can drift apart.
+- `solutions.html` is about 1 MB because it embeds three base64 JPEG images. Moving them into `assets/` would make the page much lighter.
+- The Cordyceps products section heading says "Seven forms", but the page now lists six products, since Dried Cordyceps Powder was removed.
+- The remaining WordPress assets are an external dependency (see above).
+- Forms are placeholders (see above).
