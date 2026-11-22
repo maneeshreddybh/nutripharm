@@ -23,10 +23,10 @@ The static marketing website for **Vivid Nutripharm**, a nutraceutical manufactu
 ├── single-extracts.html             # Category page ("Wellness essentials")
 ├── design-explorations/
 │   └── cordyceps-benefits-variants.html  # Design sandbox: four alternative Cordyceps benefit layouts (not linked from the site)
-├── assets/
+├── assets/                          # Large images are WebP (converted from PNG, same dimensions)
 │   ├── cert-orbit.css               # Styles for the certification badge orbit
-│   ├── product-disc.png, cordyceps-subject.png, product-lifecycle.png,
-│   │   certification-badges-transparent.png
+│   ├── product-disc.webp, cordyceps-subject.webp, product-lifecycle.webp,
+│   │   certification-badges-transparent.webp
 │   ├── products/                    # Local product and hero images (sprays, tinctures, phytosomes, effervescents, Cordyceps)
 │   └── wp/                          # Files copied from the original WordPress site
 │       ├── uploads/2026/07, 08/     #   Product, category, process, team, facility and certification images
@@ -79,7 +79,7 @@ The `id` values come from each page's `products` array (listed in the table abov
 - **Product copy, specs and ingredients:** edit the `products` array near the bottom of the category page. The grid, modal and quote form all read from it.
 - **FAQs:** category pages render their FAQ list from inline data into `#faq-list`.
 - **Cordyceps benefits:** the interactive system map in `durt-cordyceps-range.html` is driven by an inline list of benefit entries (`title` and description). Alternative layouts are kept in `design-explorations/`.
-- **Images:** put new local images under `assets/products/`. Images copied from WordPress are under `assets/wp/uploads/`. When you replace an image that browsers have already cached, add a cache-busting query (for example `?v=2`).
+- **Images:** put new local images under `assets/products/`. Use WebP for large images (quality 88–95 keeps them visually identical), and keep PNG only for favicons and small graphics. Images copied from WordPress are under `assets/wp/uploads/`. When you replace an image that browsers have already cached, add a cache-busting query (for example `?v=2`).
 - **Shared header and footer:** these are duplicated in every HTML file. A change to navigation, contact details or the footer has to be made in each page.
 
 ## External dependencies
@@ -124,5 +124,4 @@ To release:
 - `solutions.html` is about 1 MB because it embeds three base64 JPEG images. Moving them into `assets/` would make the page much lighter.
 - The Cordyceps products section heading says "Seven forms", but the page now lists six products, since Dried Cordyceps Powder was removed.
 - The footer **Privacy Policy** and **Terms & Conditions** links still point to the old WordPress host, and both pages return 404 there. They need real pages added to this repo.
-- Many images in `assets/wp/uploads/` are 1–2 MB PNGs (about 40 MB in total). Compressing them or converting them to WebP would make pages load much faster.
 - Forms are placeholders (see above).
