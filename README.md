@@ -32,6 +32,8 @@ The static marketing website for **Vivid Nutripharm**, a nutraceutical manufactu
 │       ├── uploads/2026/07, 08/     #   Product, category, process, team, facility and certification images
 │       ├── themes/astra/            #   Astra theme CSS (main.min.css) and JS (frontend.min.js)
 │       └── includes/js/             #   WordPress emoji scripts
+├── robots.txt                       # Crawl rules; blocks design-explorations/, points to the sitemap
+├── sitemap.xml                      # Public pages for search engines (update lastmod when pages change)
 ├── VERSION
 ├── .nojekyll                        # Tells GitHub Pages to serve files as-is
 └── .gitignore
@@ -125,3 +127,7 @@ To release:
 - The Cordyceps products section heading says "Seven forms", but the page now lists six products, since Dried Cordyceps Powder was removed.
 - The footer **Privacy Policy** and **Terms & Conditions** links still point to the old WordPress host, and both pages return 404 there. They need real pages added to this repo.
 - Forms are placeholders (see above).
+
+## SEO
+
+Each page has its own `<title>`, `<meta name="description">` and an absolute canonical URL on `https://vividnutripharm.com/`. If the live domain changes (for example to `www.`), update the canonical tags, `robots.txt` and `sitemap.xml` together. When adding a page, give it a title, description and canonical, and add it to `sitemap.xml`.

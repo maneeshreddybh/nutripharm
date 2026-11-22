@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /design-explorations/
+
+Sitemap: https://vividnutripharm.com/sitemap.xml
