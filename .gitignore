@@ -1,3 +1,4 @@
 .DS_Store
 **/.DS_Store
 product-images/oral-spray-packs/build/
+__pycache__/
