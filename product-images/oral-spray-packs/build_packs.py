@@ -34,7 +34,7 @@ SKUS = [
        band='Metered Spray | Assorted Flavours', hue=142, smul=.85, vmul=.62, grad=((128,.85,.72),(182,.95,.72)), colour='Green → Teal'),
   dict(id='biotin', l1='Oral Spray', l2='Biotin', icon='hair', lipo=False,
        band='Metered Spray | Assorted Flavours', hue=322, smul=.75, vmul=.88, grad=((338,.75,.88),(14,.75,.97)), colour='Rose → Peach'),
-  dict(id='sleep', l1='Oral Spray', l2='Sleep', icon='moon', lipo=False,
+  dict(id='sleep', l1='Oral Spray', l2='Melatonin', icon='moon', lipo=False,
        band='Metered Spray | Assorted Flavours', hue=262, smul=.8, vmul=.6, grad=((258,.85,.52),(282,.6,.88)), colour='Deep Violet → Lilac'),
   dict(id='mind-focus', l1='Oral Spray', l2='Mind Focus', icon='brain', lipo=False,
        band='Metered Spray | Assorted Flavours', hue=250, smul=.85, vmul=.7, grad=((214,.9,.72),(312,.85,.8)), colour='Blue → Magenta'),

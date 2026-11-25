@@ -7,7 +7,7 @@ FONT = '/usr/share/fonts/opentype/inter/Inter-{}.otf'
 NAMES = {'multivitamin': 'Multivitamin (Liposomal)', 'vitamin-c': 'Vitamin C', 'iron': 'Iron', 'zma': 'ZMA',
          'erectile-dysfunction': 'Erectile Dysfunction', 'testoboost': 'Testoboost', 'vo2-maxx': 'VO2 Maxx',
          'smokers-cough': "Smoker's Cough", 'biotin': 'Biotin',
-         'sleep': 'Sleep Spray', 'mind-focus': 'Mind Focus Spray', 'dry-mouth': 'Dry Mouth Management', 'vitamin-b12': 'Vitamin B12'}
+         'sleep': 'Melatonin Spray', 'mind-focus': 'Mind Focus Spray', 'dry-mouth': 'Dry Mouth Management', 'vitamin-b12': 'Vitamin B12'}
 
 def crop(im):
     return im.crop(im.getchannel('A').point(lambda v: 255 if v > 8 else 0).getbbox())

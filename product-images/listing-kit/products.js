@@ -152,7 +152,7 @@ window.PRODUCTS = {
   },
 
   sleep: {
-    folder: 'sleep-oral-spray', galleryId: 'sleep', name: 'Sleep', short: 'Sleep',
+    folder: 'sleep-oral-spray', galleryId: 'sleep', name: 'Melatonin', short: 'Melatonin',
     colours: { a: '#3f247d', b: '#b46ad3' },
     particles: ['Zz'],
     s2: { eyebrow: 'Melatonin · L-theanine · 5-HTP', headline: 'Unwind &amp;<br><em>sleep well</em>',
@@ -160,7 +160,7 @@ window.PRODUCTS = {
               ['bed', 'Restful sleep', 'Supports restful sleep'],
               ['clock', 'Sleep routine', 'Helps establish sleep routines'],
               ['star', 'Sleep quality', 'Supports sleep quality']] },
-    s3: { eyebrow: 'Why our Sleep spray', headline: 'Formulated to fit <em>your brand</em>',
+    s3: { eyebrow: 'Why our Melatonin spray', headline: 'Formulated to fit <em>your brand</em>',
       wide: ['nowater', 'No Water or Heavy Digestion Needed', ''],
       cards: [['mouth', 'Sublingual & Buccal Delivery', 'Delivery through oral mucosal tissues.'],
               ['shield', 'FSSAI | ISO | GMP', 'Certified manufacturing with quality control.'],
@@ -169,7 +169,7 @@ window.PRODUCTS = {
     s4: { headline: 'Your nightly<br>relaxation blend', tiles: [['@moon', 'Melatonin'], ['@leaf', 'L-theanine'], ['5-HTP', '5-HTP']], badge: '30 mL &nbsp;|&nbsp; 30-day pack' },
     // NOTE: the document's Page 5 for Sleep repeats the Vitamin B12 text, so these
     // points are written from the Sleep text on its other pages. Review before publishing.
-    s5: { eyebrow: 'How it works', headline: 'The <em>sleep spray</em> advantage',
+    s5: { eyebrow: 'How it works', headline: 'The <em>melatonin spray</em> advantage',
       points: [['moon', 'Supports Restful Sleep', 'Combines Melatonin, L-theanine and 5-HTP to promote relaxation and support sleep quality.'],
                ['clock', 'Helps Establish Sleep Routines', 'Designed to fit easily into a consistent night-time routine.'],
                ['mouth', 'Fast-Acting Bedtime Absorption', 'Absorbed through oral mucosal tissues, with no water or heavy digestion needed.'],
