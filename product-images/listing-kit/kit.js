@@ -231,8 +231,11 @@
   };
   const layer = (el, svg, w = 1000, h = 1000) => { const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     s.setAttribute('viewBox', `0 0 ${w} ${h}`); s.setAttribute('class', 'deco'); s.setAttribute('preserveAspectRatio', 'none'); s.innerHTML = svg; el.insertBefore(s, el.firstChild); };
+  const MOTIF = window.MOTIFS ? window.MOTIFS(q.get('p'), C) : null;
   ['s1', 's1b', 's2', 's3', 's4', 's5', 's6', 's7', 's8'].forEach(id => {
-    const t = forced || MIX[id]; const art = THEME[t] && THEME[t][id];
+    const t = forced || MIX[id];
+    // benefit-themed background for the product (default), generic theme otherwise
+    const art = (!forced && MOTIF && MOTIF[id]) || (THEME[t] && THEME[t][id]);
     if (art) layer(document.getElementById(id), art);
     if (id === 's8' && t === 'fruit') document.querySelectorAll('#s8 .flv').forEach(c => layer(c, THEME.fruit.card[c.dataset.flavour], 218, 690));
   });
