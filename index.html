@@ -57,7 +57,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 			(function(){if(window.matchMedia('(max-width:921.99px)').matches){document.body.classList.add('ast-header-break-point');document.body.classList.remove('ast-desktop');}})();
 			</script>
 			    <style>
-        html { scroll-padding-top: 150px; }
+        html { scroll-padding-top: 96px; }
         /* Astra lays #content and #primary out as flex items. Their default
            min-width:auto resolves to min-content, so a wide descendant -- the
            horizontally scrolling product card rows -- inflates the page width
@@ -75,11 +75,21 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
             grid-template-columns: auto 1fr;
             align-items: center;
             gap: 20px;
-            padding: 15px 40px;
+            padding: 10px 40px;
             border-top: 3px solid #0a3d2e;
             font-family: 'Inter', Arial, Helvetica, sans-serif;
             background: #fff;
             overflow: visible;
+        }
+
+        .vivid-header {
+            transition: transform 0.3s ease;
+        }
+        .vivid-header.vivid-header-hidden {
+            transform: translateY(-100%);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .vivid-header { transition: none; }
         }
 
         .vivid-header .vivid-logo,
@@ -106,7 +116,8 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
             grid-column: 1;
         }
         .vivid-header .vivid-logo img {
-            max-height: 104px;
+            height: 46px;
+            width: auto;
             display: block;
             transition: transform 0.3s ease;
         }
@@ -168,9 +179,9 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
         /* Single CTA button - styled inline for desktop, full width in mobile dropdown */
         .vivid-header .vivid-nav .vivid-btn {
             text-decoration: none;
-            background: #0a3d2e;
-            color: #fff !important;
-            padding: 10px 22px;
+            background: #7cc242;
+            color: #0a3d2e !important;
+            padding: 11px 24px;
             border-radius: 30px;
             font-size: 14px;
             font-weight: 600;
@@ -181,10 +192,10 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
             display: none;
         }
         .vivid-header .vivid-nav .vivid-btn:hover {
-            color: #fff !important;
+            color: #0a3d2e !important;
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(10, 61, 46, 0.35);
-            background: #0d5240;
+            box-shadow: 0 6px 16px rgba(124, 194, 66, 0.45);
+            background: #8fd25a;
         }
 
         /* ---- Solutions dropdown (desktop: hover) ---- */
@@ -405,7 +416,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
     <header class="vivid-header" id="vividStickyHeader">
         <div class="vivid-logo">
             <a href="index.html">
-                <img src="assets/wp/uploads/2026/08/ChatGPT-Image-Aug-6-2026-08_48_23-AM.webp" alt="Vivid Nutripharm">
+                <img src="assets/vivid-logo-trimmed.webp" alt="Vivid Nutripharm" width="360" height="185">
             </a>
         </div>
 
@@ -434,7 +445,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
                 </div>
 
             </div>
-            <a href="contact.html" class="vivid-btn">Let's Build Together</a>
+            <a href="#contact" class="vivid-btn">Request a Quote</a>
         </nav>
 
         <button class="vivid-burger" id="vividBurger" aria-label="Toggle menu">
@@ -443,6 +454,28 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
             <span></span>
         </button>
     </header>
+
+    <script>
+        (function () {
+            /* Hide the header while scrolling down, bring it back on any scroll up. */
+            var header = document.getElementById('vividStickyHeader');
+            var nav = document.getElementById('vividNav');
+            if (!header) return;
+            var lastY = window.pageYOffset, ticking = false;
+            window.addEventListener('scroll', function () {
+                if (ticking) return;
+                ticking = true;
+                window.requestAnimationFrame(function () {
+                    var y = window.pageYOffset;
+                    var menuOpen = nav && nav.classList.contains('vivid-nav-open');
+                    header.classList.toggle('vivid-header-hidden', !menuOpen && y > 160 && y > lastY + 4);
+                    if (y < lastY - 4 || y <= 160) header.classList.remove('vivid-header-hidden');
+                    lastY = y;
+                    ticking = false;
+                });
+            }, { passive: true });
+        })();
+    </script>
 
     <script>
         (function () {
@@ -552,12 +585,12 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
 
 <style>
     /* ---------- shared tokens (scoped via class prefixes, no global resets) ---------- */
-    .vhs-hero, .vrb-ribbon, .vab-cta, .vpr-process, .vtp-tech, .vso-solutions,
+    .vhs-hero, .vab-cta, .vtp-tech, .vso-solutions,
     .vts-testi, .vld-leaders, .vfc-facilities, .vcert-strip, .vfaq-final {
         font-family: 'Inter', Arial, Helvetica, sans-serif;
         box-sizing: border-box;
     }
-    .vhs-hero *, .vrb-ribbon *, .vab-cta *, .vpr-process *, .vtp-tech *, .vso-solutions *,
+    .vhs-hero *, .vab-cta *, .vtp-tech *, .vso-solutions *,
     .vts-testi *, .vld-leaders *, .vfc-facilities *, .vcert-strip *, .vfaq-final * {
         box-sizing: border-box;
     }
@@ -651,157 +684,23 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
         .vhs-hero-certs { margin: 28px auto 0; max-width: 460px; }
     }
 
-    /* ================= STATS RIBBON (whole-bar capsule design) ================= */
-    .vrb-ribbon { background: #ffffff; padding: 48px 40px 70px; }
-    .vrb-inner { max-width: 1120px; margin: 0 auto; }
-    .vrb-heading {
-        text-align: center; color: #0a3d2e; font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 700;
-        letter-spacing: 2px; text-transform: uppercase; margin: 0 0 28px;
-    }
-    .vrb-capsule {
-        background: #0a3d2e; border-radius: 999px; padding: 8px; display: flex; align-items: stretch;
-        box-shadow: 0 24px 50px rgba(10, 61, 46, 0.28);
-        opacity: 0; transform: translateY(20px); animation: vrbRise 0.7s ease forwards;
-    }
-    @keyframes vrbRise { to { opacity: 1; transform: translateY(0); } }
-    .vrb-stat { flex: 1; display: flex; align-items: center; justify-content: center; gap: 14px; padding: 20px 18px; position: relative; }
-    .vrb-stat + .vrb-stat::before { content: ''; position: absolute; left: 0; top: 20%; bottom: 20%; width: 1px; background: rgba(255, 255, 255, 0.18); }
-    .vrb-icon { width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0; background: rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; }
-    .vrb-icon svg { width: 21px; height: 21px; stroke: #7ed197; fill: none; }
-    .vrb-text { display: flex; flex-direction: column; line-height: 1.25; white-space: nowrap; }
-    .vrb-num { font-family: 'Poppins', Arial, sans-serif; font-size: 21px; font-weight: 700; color: #fff; }
-    .vrb-label { font-size: 12px; color: #cfe9dd; }
-    @media (max-width: 992px) {
-        .vrb-text { white-space: normal; }
-        .vrb-label { font-size: 11.5px; }
-        .vrb-stat { padding: 18px 10px; gap: 10px; }
-        .vrb-num { font-size: 18px; }
-    }
-    @media (max-width: 640px) {
-        .vrb-ribbon { padding: 48px 20px; }
-        .vrb-capsule { border-radius: 28px; flex-direction: column; padding: 6px; }
-        .vrb-stat { justify-content: flex-start; padding: 16px 20px; }
-        .vrb-stat + .vrb-stat::before { left: 20px; right: 20px; top: 0; bottom: auto; width: auto; height: 1px; }
-        .vrb-text { white-space: normal; }
-    }
-
-    /* ================= ABOUT US CTA ================= */
-    .vab-cta { background: #f4f8f6; padding: 70px 40px; }
-    .vab-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 0.85fr 1.15fr; align-items: center; gap: 60px; }
-    .vab-logo img { width: 100%; max-width: 570px; height: auto; display: block; }
-    .vab-copy h2 { font-family: 'Poppins', Arial, sans-serif; font-size: clamp(25px, 3.2vw, 32px); color: #121212; margin: 0 0 14px; font-weight: 700; }
-    .vab-copy p { font-size: 15.5px; color: #4b5750; line-height: 1.7; margin: 0 0 24px; max-width: 560px; }
-    @media (max-width: 992px) {
-        .vab-logo img { max-width: 450px; }
-    }
-    @media (max-width: 768px) {
-        .vab-cta { padding: 50px 20px; }
-        .vab-inner { grid-template-columns: 1fr; text-align: center; gap: 24px; }
-        .vab-logo { display: flex; justify-content: center; }
-        .vab-logo img { max-width: 330px; }
-        .vab-copy p { margin-left: auto; margin-right: auto; }
-    }
-
-    /* ================= OUR PROCESS (light timeline with image icons) ================= */
-    .vpr-process {
-        position: relative;
-        overflow: hidden;
-        background: #ffffff;
-        padding: 90px 40px;
-    }
-    .vpr-inner { max-width: 1180px; margin: 0 auto; position: relative; z-index: 1; }
-    .vpr-head { text-align: center; margin-bottom: 64px; }
-    .vpr-eyebrow {
-        display: inline-block; font-family: Arial, Helvetica, sans-serif; font-size: 12.5px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
-        color: #0a3d2e; background: #f4f8f6; border: 1px solid #dcebe4; padding: 7px 16px; border-radius: 30px; margin: 0 0 16px;
-    }
-    .vpr-head h2 {
-        font-family: 'Poppins', Arial, sans-serif; font-size: clamp(25px, 3.2vw, 32px); font-weight: 700; color: #121212;
-        margin: 0 0 16px; line-height: 1.32;
-    }
-    .vpr-head h2 .vpr-hl-green { color: #0a3d2e; }
-    .vpr-head h2 .vpr-hl-gold { color: #b8862f; }
-    .vpr-head p { font-size: 15.5px; color: #4b5750; line-height: 1.7; max-width: 620px; margin: 0 auto; }
-
-    .vpr-line-wrap { position: relative; }
-    .vpr-track { display: flex; align-items: flex-start; position: relative; }
-    .vpr-step {
-        position: relative;
-        flex: 1 1 0; min-width: 0; text-align: center; padding: 0 6px;
-        opacity: 0; transform: translateY(26px);
-        transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    /* Connecting timeline line running behind the icons, plus a small node
-       dot centered under each icon. Both grow/pop in once the section
-       scrolls into view (see .vpr-in below). */
-    .vpr-track::before {
-        content: '';
-        position: absolute;
-        top: 128px; left: 8.3333%; right: 8.3333%;
-        height: 2px;
-        background: linear-gradient(90deg, #cfe4da 0%, #b8862f 50%, #cfe4da 100%);
-        transform: scaleX(0); transform-origin: left center;
-        transition: transform 1.1s ease 0.2s;
-        z-index: 0;
-    }
-    .vpr-line-wrap.vpr-in .vpr-track::before { transform: scaleX(1); }
-    .vpr-step::after {
-        content: '';
-        position: absolute;
-        top: 123px; left: 50%;
-        width: 10px; height: 10px; border-radius: 50%;
-        background: #0a3d2e; border: 2px solid #ffffff;
-        box-shadow: 0 0 0 2px #cfe4da;
-        transform: translateX(-50%) scale(0);
-        transition: transform 0.4s ease 0.5s;
-        z-index: 1;
-    }
-    .vpr-line-wrap.vpr-in .vpr-step::after { transform: translateX(-50%) scale(1); }
-
-    .vpr-line-wrap.vpr-in .vpr-step { opacity: 1; transform: translateY(0); }
-    .vpr-line-wrap.vpr-in .vpr-track > *:nth-child(1) { transition-delay: 0.05s; }
-    .vpr-line-wrap.vpr-in .vpr-track > *:nth-child(2) { transition-delay: 0.15s; }
-    .vpr-line-wrap.vpr-in .vpr-track > *:nth-child(3) { transition-delay: 0.25s; }
-    .vpr-line-wrap.vpr-in .vpr-track > *:nth-child(4) { transition-delay: 0.35s; }
-    .vpr-line-wrap.vpr-in .vpr-track > *:nth-child(5) { transition-delay: 0.45s; }
-    .vpr-line-wrap.vpr-in .vpr-track > *:nth-child(6) { transition-delay: 0.55s; }
-
-    .vpr-dot {
-        width: auto; height: auto; margin: 0 auto 16px; position: relative;
-        background: none;
-        display: flex; align-items: center; justify-content: center;
-        box-shadow: none;
-        transition: transform 0.35s ease;
-    }
-    .vpr-step:hover .vpr-dot { transform: scale(1.07); }
-    .vpr-dot img { width: 120px; height: 120px; object-fit: contain; display: block; }
-    .vpr-num {
-        display: block; font-family: 'Poppins', Arial, sans-serif; font-size: 13px; font-weight: 700;
-        letter-spacing: 1px; color: #0a3d2e; margin: 0 0 8px;
-    }
-    .vpr-step h3 { font-family: 'Poppins', Arial, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: #121212; margin: 0 0 10px; }
-    .vpr-step p { font-size: 12.5px; color: #4b5750; line-height: 1.6; margin: 0 auto; max-width: 175px; }
-
+    /* ================= ABOUT US + CAPABILITIES ================= */
+    .vab-cta { background: #f4f8f6; padding: 80px 40px; }
+    .vab-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 64px; }
+    .vab-caps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .vab-caps li { background: #fff; border: 1px solid #dcebe4; border-radius: 18px; padding: 22px 20px; display: flex; flex-direction: column; gap: 6px; }
+    .vab-caps strong { font-family: 'Poppins', Arial, sans-serif; font-size: 18px; font-weight: 600; color: #121212; }
+    .vab-caps li > span:last-child { font-size: 15px; line-height: 1.55; color: #3a3a3a; }
+    .vab-cap-icon { width: 42px; height: 42px; border-radius: 12px; background: #eaf5e4; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+    .vab-cap-icon svg { width: 22px; height: 22px; stroke: #0a3d2e; fill: none; }
+    .vab-copy h2 { margin: 0 0 16px; }
+    .vab-copy p { margin: 0 0 24px; }
     @media (max-width: 900px) {
-        .vpr-track { flex-direction: column; gap: 34px; position: relative; }
-        .vpr-track::before { display: none; }
-        .vpr-step::after { display: none; }
-        .vpr-step { display: flex; align-items: flex-start; gap: 16px; text-align: left; padding: 0; transform: translateX(-20px); }
-        .vpr-line-wrap.vpr-in .vpr-step { transform: translateX(0); }
-        .vpr-dot { margin: 0; flex-shrink: 0; }
-        .vpr-step .vpr-num { margin-bottom: 4px; }
-        .vpr-step p { max-width: none; margin: 0; }
-        .vpr-line-wrap::before {
-            content: ''; position: absolute; top: 6px; bottom: 6px; left: 60px; width: 2px; background: #e7efec;
-            transform: scaleY(0); transform-origin: top center; transition: transform 1s ease 0.15s;
-        }
-        .vpr-line-wrap.vpr-in::before { transform: scaleY(1); }
+        .vab-cta { padding: 56px 20px; }
+        .vab-inner { grid-template-columns: 1fr; gap: 36px; }
+        .vab-copy { order: -1; }
     }
-    @media (max-width: 640px) {
-        .vpr-process { padding: 64px 20px; }
-        .vpr-head { margin-bottom: 44px; }
-    }
+    @media (max-width: 420px) { .vab-caps { grid-template-columns: 1fr; } }
 
     /* ================= TECHNOLOGY PLATFORMS (heading+text left / 4 images in one row right) ================= */
     .vtp-tech { background: #f4f8f6; padding: 80px 40px; }
@@ -917,10 +816,8 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
     .vso-head-text { text-align: center; }
     .vso-head-text h2 { font-family: 'Poppins', Arial, sans-serif; font-size: clamp(25px, 3.2vw, 32px); color: #121212; margin: 0 auto 12px; font-weight: 700; line-height: 1.28; max-width: 100%; }
     .vso-head-text p { font-size: 15.5px; color: #4b5750; max-width: 900px; margin: 0 auto; }
-    .vso-head-text p.vso-head-lead { font-size: 17px; font-weight: 600; color: #0a3d2e; max-width: 820px; margin: 0 auto 8px; }
     /* The heading and lead sit on a single line on desktop and wrap naturally
        once the container gets narrower than the text. */
-    @media (max-width: 640px) { .vso-head-text p.vso-head-lead { font-size: 15.5px; } }
     .vso-head-top .vso-viewall { flex-shrink: 0; }
 
     .vso-tabs {
@@ -1369,24 +1266,143 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
         .vivid-hero-graphic { width: 100%; height: auto; display: block; }
 
     /* ---------- shared type scale ----------
-       Site-wide roles: h1 clamp(30-46px) / h2 clamp(25-32px), both Poppins;
-       17px card headings; 16.5px hero sub, 15.5px lead, 14px body in Inter;
-       12.5px uppercase Arial eyebrows. Keep new sections on these steps. */
+       h1 clamp(34-54px) Poppins 700 (hero only) / h2 clamp(28-40px) Poppins 600 /
+       h3 24px / 18px card headings; 17px lead and body copy in Inter at #3a3a3a,
+       capped at 62ch; 12.5px uppercase Inter eyebrows, one per section at most.
+       Colour roles: deep green #0a3d2e is structure (headings, icons, dark bands);
+       leaf green #7cc242 is reserved for the "Request a Quote" action. */
+    :root { --vx-ink: #121212; --vx-body: #3a3a3a; --vx-green: #0a3d2e; --vx-accent: #7cc242; --vx-accent-hover: #8fd25a; }
+
+    /* Headings: one clear step per level */
+    .vhs-hero h1 { font-size: clamp(34px, 3.9vw, 54px); line-height: 1.1; letter-spacing: -0.5px; }
+    .vhs-hero-inner { grid-template-columns: 1.2fr 0.8fr; max-width: 1240px; }
+    @media (max-width: 768px) { .vhs-hero-inner { grid-template-columns: 1fr; } }
+    .vab-copy h2, .vtp-copy-col h2, .vso-head-text h2, .vts-head h2, .vld-intro h2,
+    .vfc-head h2, .vcert-head h2, .vfaq-cta h2, .vcf-info h2 {
+        font-size: clamp(28px, 3.2vw, 40px); font-weight: 600; line-height: 1.2; letter-spacing: -0.3px;
+    }
+    .vab-copy h2, .vtp-copy-col h2, .vso-head-text h2, .vts-head h2, .vld-intro h2, .vfc-head h2, .vcert-head h2 { color: var(--vx-ink); }
+
+    /* Body copy: darker, larger, readable line length */
+    .vhs-hero p.vhs-sub { font-size: 18px; line-height: 1.6; color: var(--vx-body); max-width: 56ch; }
+    .vab-copy p, .vtp-copy-col p, .vso-head-text p, .vld-intro p, .vfc-head p {
+        font-size: 17px; line-height: 1.65; color: var(--vx-body); max-width: 62ch;
+    }
+    .vso-head-text p, .vfc-head p { margin-left: auto; margin-right: auto; }
+    .vts-text { color: var(--vx-body); }
+    .vts-reviewer span { color: #5a6660; }
+
+    /* Eyebrows: one style everywhere (plain text, no pill) */
+    .vhs-eyebrow, .vtp-copy-col .vtp-eyebrow, .vld-eyebrow, .vcf-info-eyebrow {
+        font-family: 'Inter', Arial, Helvetica, sans-serif; font-size: 12.5px; font-weight: 700;
+        letter-spacing: 1.5px; text-transform: uppercase; color: #2e7d32;
+        background: none; border: 0; padding: 0; border-radius: 0; display: inline-block;
+    }
+    .vcf-info-eyebrow { color: #b6e39a; }
+
+    /* Primary action: the only filled, leaf-green button on the page */
+    .vx-btn-quote, .vivid-header .vivid-nav .vivid-btn, .vcf-submit-btn {
+        background: var(--vx-accent) !important; color: var(--vx-green) !important; font-weight: 700;
+    }
+    .vx-btn-quote {
+        display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
+        font-family: 'Inter', Arial, Helvetica, sans-serif; font-size: 16px; padding: 16px 32px; border-radius: 40px;
+        box-shadow: 0 6px 18px rgba(124,194,66,0.35); transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+    .vx-btn-quote:hover, .vivid-header .vivid-nav .vivid-btn:hover, .vcf-submit-btn:hover {
+        background: var(--vx-accent-hover) !important; color: var(--vx-green) !important;
+    }
+    .vx-btn-quote:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(124,194,66,0.45); }
+    .vx-btn-quote:focus-visible, .vx-link-arrow:focus-visible { outline: 3px solid var(--vx-green); outline-offset: 3px; }
+
+    /* Secondary actions: text links, never buttons */
+    .vx-link-arrow {
+        display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 16px;
+        color: var(--vx-green) !important; text-decoration: none; padding: 8px 0;
+        border-bottom: 2px solid transparent; transition: border-color 0.2s ease, gap 0.2s ease;
+    }
+    .vx-link-arrow svg { width: 18px; height: 18px; stroke: currentColor; fill: none; }
+    .vx-link-arrow:hover { border-bottom-color: currentColor; gap: 12px; }
+
+    /* Hero proof stats (formerly a separate ribbon) */
+    .vhs-cta-row { align-items: center; gap: 28px; }
+    .vhs-proof {
+        list-style: none; padding: 0; margin: 0 0 30px; display: flex; flex-wrap: wrap; gap: 10px 28px;
+        opacity: 0; transform: translateY(18px); animation: vhsRise 0.7s ease forwards; animation-delay: 0.3s;
+    }
+    .vhs-proof li { font-size: 15px; color: var(--vx-body); }
+    .vhs-proof strong { font-family: 'Poppins', Arial, sans-serif; font-size: 22px; font-weight: 700; color: var(--vx-green); margin-right: 4px; }
+
+    /* Product browser: 4 groups, then a short row of categories */
+    .vso-groups { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin: 0 auto 14px; padding: 6px; background: #f0f5f2; border-radius: 40px; width: fit-content; max-width: 100%; }
+    .vso-group {
+        border: 0; background: transparent; cursor: pointer; font-family: 'Inter', Arial, sans-serif; font-size: 15px; font-weight: 600;
+        color: var(--vx-green); padding: 11px 22px; border-radius: 30px; transition: background 0.2s ease, color 0.2s ease;
+    }
+    .vso-group:not(.vso-group-active) { background: transparent; box-shadow: none; }
+    .vso-group:not(.vso-group-active):hover { background: #e1ede6; }
+    .vso-group.vso-group-active { background: var(--vx-green); color: #fff; }
+    .vso-tabs .vso-tab[hidden] { display: none; }
+    .vso-tab { font-size: 13.5px; padding: 8px 16px; }
+    .vso-pcard-body span { font-size: 12.5px; color: #5a6660; }
+
+    /* Inline quote strip */
+    .vx-quote-strip { background: #fff; padding: 0 40px 72px; }
+    .vx-quote-strip-inner {
+        max-width: 1180px; margin: 0 auto; background: #eaf5e4; border: 1px solid #cfe6c1; border-radius: 24px;
+        padding: 26px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .vx-quote-strip p { margin: 0; font-size: 18px; line-height: 1.5; color: var(--vx-body); }
+    .vx-quote-strip p strong { color: var(--vx-green); }
+    .vx-quote-strip .vx-btn-quote { flex-shrink: 0; }
+
+    /* Mobile sticky quote bar */
+    .vx-sticky-quote { display: none; }
+    @media (max-width: 768px) {
+        .vx-sticky-quote {
+            display: flex; align-items: center; justify-content: center; position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 990;
+            height: 54px; border-radius: 40px; background: var(--vx-accent); color: var(--vx-green) !important; font-weight: 700; font-size: 16px;
+            text-decoration: none; box-shadow: 0 10px 28px rgba(10,61,46,0.28);
+            transform: translateY(120%); opacity: 0; pointer-events: none; transition: transform 0.3s ease, opacity 0.3s ease;
+            padding-bottom: env(safe-area-inset-bottom, 0);
+        }
+        .vx-sticky-quote.vx-sticky-on { transform: translateY(0); opacity: 1; pointer-events: auto; }
+        .vivid-footer { padding-bottom: 90px; }
+        .vx-quote-strip { padding: 0 20px 56px; }
+        .vx-quote-strip-inner { flex-direction: column; text-align: center; padding: 24px 20px; }
+        .vx-quote-strip p { font-size: 16.5px; }
+        /* Copy and CTA first on phones; the lifecycle graphic follows */
+        .vhs-hero-media { order: 0; margin: 12px auto 0; max-width: 340px; }
+        .vhs-proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .vhs-proof li { display: flex; flex-direction: column; align-items: center; font-size: 12.5px; line-height: 1.3; }
+        .vhs-proof strong { font-size: 22px; margin: 0 0 2px; }
+        .vso-groups { display: grid; grid-template-columns: 1fr 1fr; width: 100%; border-radius: 22px; }
+        .vhs-hero p.vhs-sub { font-size: 16.5px; }
+        .vhs-cta-row { flex-direction: column; gap: 10px; }
+        .vhs-cta-row .vx-btn-quote { width: 100%; max-width: 360px; }
+        .vso-group { font-size: 13px; padding: 10px 6px; white-space: nowrap; }
+        .vab-copy p, .vtp-copy-col p, .vso-head-text p, .vld-intro p, .vfc-head p { font-size: 16px; }
+    }
 </style>
 
 <!-- ================= HERO ================= -->
 <section class="vhs-hero">
     <div class="vhs-hero-inner">
         <div class="vhs-hero-copy">
-            <span class="vhs-eyebrow">Science-Led · Quality-Driven · Innovation-Focused</span>
-            <h1>Crafting the <span>Future of Wellness</span>, From Ingredient to Innovation</h1>
+            <span class="vhs-eyebrow">Crafting the future of wellness</span>
+            <h1>Private-label nutraceutical manufacturing, <span>from formula to finished product.</span></h1>
             <p class="vhs-sub">
-                Vivid Nutripharm formulates and manufactures differentiated wellness products for brands ready to move the industry forward —
-                from full-spectrum Cordyceps and advanced oral sprays to effervescent tablets and phytosome-based delivery technologies.
+                Formulation, extraction and GMP-certified manufacturing for wellness brands, from full-spectrum Cordyceps and oral sprays
+                to effervescent tablets and phytosomes, made under your label.
             </p>
+            <ul class="vhs-proof" aria-label="Vivid Nutripharm at a glance">
+                <li><strong>65+</strong> formulations developed</li>
+                <li><strong>10+</strong> delivery platforms</li>
+                <li><strong>25+</strong> countries reached</li>
+            </ul>
             <div class="vhs-cta-row">
-                <a href="solutions.html" class="vhs-btn-primary">Explore Our Solutions</a>
-                <a href="contact.html" class="vhs-btn-secondary">Partner With Us</a>
+                <a href="#contact" class="vx-btn-quote">Request a Quote</a>
+                <a href="solutions.html" class="vx-link-arrow">Explore our solutions <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
             </div>
             <div class="vhs-hero-certs">
                 <img src="assets/certification-badges-transparent.webp"
@@ -1402,139 +1418,24 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
     </div>
 </section>
 
-<!-- ================= STATS RIBBON (capsule) ================= -->
-<section class="vrb-ribbon">
-    <div class="vrb-inner">
-        <p class="vrb-heading">R&amp;D-Led Innovation</p>
-        <div class="vrb-capsule">
-            <div class="vrb-stat">
-                <div class="vrb-icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v5.5L5 18a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9.5V3"></path></svg></div>
-                <div class="vrb-text">
-                    <span class="vrb-num">65+</span>
-                    <span class="vrb-label">Formulations Developed</span>
-                </div>
-            </div>
-            <div class="vrb-stat">
-                <div class="vrb-icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"></circle><ellipse cx="12" cy="12" rx="9" ry="3.8"></ellipse><ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(60 12 12)"></ellipse><ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(120 12 12)"></ellipse></svg></div>
-                <div class="vrb-text">
-                    <span class="vrb-num">10+</span>
-                    <span class="vrb-label">Advanced Delivery Platforms</span>
-                </div>
-            </div>
-            <div class="vrb-stat">
-                <div class="vrb-icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"></path><path d="M9 12l2 2 4-4"></path></svg></div>
-                <div class="vrb-text">
-                    <span class="vrb-num">100%</span>
-                    <span class="vrb-label">Quality Compliance</span>
-                </div>
-            </div>
-            <div class="vrb-stat">
-                <div class="vrb-icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg></div>
-                <div class="vrb-text">
-                    <span class="vrb-num">25+</span>
-                    <span class="vrb-label">Countries Global Reach</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ================= ABOUT US CTA ================= -->
+<!-- ================= ABOUT US + CAPABILITIES ================= -->
 <section class="vab-cta">
     <div class="vab-inner">
-        <div class="vab-logo">
-            <img decoding="async" src="assets/wp/uploads/2026/08/ChatGPT-Image-Aug-6-2026-08_48_23-AM.webp" alt="Vivid Nutripharm logo" loading="lazy">
-        </div>
+        <ul class="vab-caps" aria-label="What we do in-house">
+            <li><span class="vab-cap-icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22V12"></path><path d="M12 12C12 7 8 4 4 4c0 5 3 8 8 8z"></path><path d="M12 14c0-4 3-7 8-7 0 4-3 7-8 7z"></path></svg></span><strong>Cultivation</strong><span>Cordyceps grown in-house, from culture to fruiting body.</span></li>
+            <li><span class="vab-cap-icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v5.5L5 18a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9.5V3"></path></svg></span><strong>Extraction</strong><span>Standardised extracts and full-spectrum actives.</span></li>
+            <li><span class="vab-cap-icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1.5"></circle><ellipse cx="12" cy="12" rx="9" ry="3.8"></ellipse><ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(60 12 12)"></ellipse><ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(120 12 12)"></ellipse></svg></span><strong>Formulation</strong><span>Phytosomes, liposomes, sprays and effervescents.</span></li>
+            <li><span class="vab-cap-icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"></path><path d="M9 12l2 2 4-4"></path></svg></span><strong>Manufacturing</strong><span>GMP production with packaging and regulatory support.</span></li>
+        </ul>
         <div class="vab-copy">
-            <h2>Driven by Science. Built for Brands That Move Wellness Forward.</h2>
+            <h2>Driven by science. Built for brands that move wellness forward.</h2>
             <p>
-                Discover our portfolio of advanced nutraceutical and health supplement formulations powered by innovative technologies such as phytosomes, liposomes, and enhanced-bioavailability delivery systems. Our products are developed for targeted health and chronic wellness applications, combining scientific innovation, quality, and commercial scalability.
+                Our portfolio of nutraceutical and health supplement formulations is built on delivery technologies such as phytosomes, liposomes and enhanced-bioavailability systems, developed for targeted health and chronic wellness applications and ready to scale commercially.
             </p>
-            <a href="about-us.html" class="vhs-btn-primary">Learn About Us</a>
+            <a href="about-us.html" class="vx-link-arrow">Learn about us <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
         </div>
     </div>
 </section>
-
-<!-- ================= OUR PROCESS (timeline) ================= -->
-<section class="vpr-process">
-    <div class="vpr-inner">
-        <div class="vpr-head">
-            <h2>From Concept to Commercialization — End-to-End Wellness Manufacturing</h2>
-            <p>A seamless journey that takes your product from concept to market — built for speed without cutting corners on quality.</p>
-        </div>
-        <div class="vpr-line-wrap" id="vprLineWrap">
-            <div class="vpr-track">
-                <div class="vpr-step">
-                    <div class="vpr-dot">
-                        <img decoding="async" src="assets/wp/uploads/2026/07/Discover.webp" alt="Discovery icon" loading="lazy" width="120" height="120">
-                    </div>
-                    <h3>Discovery</h3>
-                    <p>Market Research &amp; Concept Evaluation</p>
-                </div>
-                <div class="vpr-step">
-                    <div class="vpr-dot">
-                        <img decoding="async" src="assets/wp/uploads/2026/07/Research-and-development.webp" alt="Research icon" loading="lazy" width="120" height="120">
-                    </div>
-                    <h3>Research</h3>
-                    <p>Scientific Validation &amp; Ingredient Selection</p>
-                </div>
-                <div class="vpr-step">
-                    <div class="vpr-dot">
-                        <img decoding="async" src="assets/wp/uploads/2026/07/Formulation-Development.webp" alt="Formulation icon" loading="lazy" width="120" height="120">
-                    </div>
-                    <h3>Formulation</h3>
-                    <p>Custom Formulation &amp; Development</p>
-                </div>
-                <div class="vpr-step">
-                    <div class="vpr-dot">
-                        <img decoding="async" src="assets/wp/uploads/2026/07/Testing-Validation.webp" alt="Testing icon" loading="lazy" width="120" height="120">
-                    </div>
-                    <h3>Testing</h3>
-                    <p>Stability, Safety &amp; Efficacy Testing</p>
-                </div>
-                <div class="vpr-step">
-                    <div class="vpr-dot">
-                        <img decoding="async" src="assets/wp/uploads/2026/07/Manufacturing-Packaging.webp" alt="Manufacturing icon" loading="lazy" width="120" height="120">
-                    </div>
-                    <h3>Manufacturing</h3>
-                    <p>Scalable &amp; Compliant Production</p>
-                </div>
-                <div class="vpr-step">
-                    <div class="vpr-dot">
-                        <img decoding="async" src="assets/wp/uploads/2026/07/Market-Ready-Products.webp" alt="Brand launch icon" loading="lazy" width="120" height="120">
-                    </div>
-                    <h3>Brand Launch</h3>
-                    <p>Packaging, Regulatory &amp; Market Support</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<script>
-    /* Triggers the step-by-step fade-in for "Our Process" the moment the
-       section scrolls into view. Adds .vpr-in once, then stops observing
-       (the CSS above already has the staggered per-step delays defined). */
-    (function () {
-        var vprWrap = document.getElementById('vprLineWrap');
-        if (!vprWrap) return;
-
-        if ('IntersectionObserver' in window) {
-            var vprObserver = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        vprWrap.classList.add('vpr-in');
-                        vprObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.25 });
-            vprObserver.observe(vprWrap);
-        } else {
-            /* Fallback for very old browsers without IntersectionObserver */
-            vprWrap.classList.add('vpr-in');
-        }
-    })();
-</script>
 
 <!-- ================= TECHNOLOGY PLATFORMS (heading+text left / 4 images in one row right) ================= -->
 <section class="vtp-tech">
@@ -1547,7 +1448,7 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
                     Advanced delivery systems engineered for better bioavailability, faster absorption, and
                     formulation flexibility — the science behind every Vivid Nutripharm product.
                 </p>
-                <a href="solutions.html" class="vhs-btn-primary">See It In Our Products</a>
+                <a href="solutions.html" class="vx-link-arrow">See it in our products <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
             </div>
 
             <div class="vtp-grid" id="vtpGrid">
@@ -1616,23 +1517,28 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
     <div class="vso-inner">
         <div class="vso-head-top">
             <div class="vso-head-text">
-                <h2>From inspiration to innovation. From innovation to impact.</h2>
-                <p class="vso-head-lead">We transform ideas into differentiated wellness products, built for what&#8217;s next.</p>
-                <p>Explore our specialized category of technologies, formulations and products shaping the next generation of wellness.</p>
+                <h2>Explore our product range</h2>
+                <p>Ready-to-brand formulations across mushrooms, advanced delivery formats and targeted health needs. Every product is available for private label.</p>
             </div>
         </div>
 
         <!-- Category tabs. Clicking a tab shows that category's product row below. -->
+        <div class="vso-groups" id="vsoGroups" role="tablist" aria-label="Product groups">
+            <button type="button" class="vso-group vso-group-active" role="tab" aria-selected="true" data-vso-group="mushrooms">Cordyceps &amp; Mushrooms</button>
+            <button type="button" class="vso-group" role="tab" aria-selected="false" data-vso-group="formats">Delivery Formats</button>
+            <button type="button" class="vso-group" role="tab" aria-selected="false" data-vso-group="health">Health Targets</button>
+            <button type="button" class="vso-group" role="tab" aria-selected="false" data-vso-group="essentials">Essentials</button>
+        </div>
         <div class="vso-tabs" id="vsoTabs">
-            <button type="button" class="vso-tab vso-tab-active" data-vso-target="durt-cordyceps">Our Cordyceps</button>
-            <button type="button" class="vso-tab" data-vso-target="mushroom-tinctures">Mushroom Tinctures</button>
-            <button type="button" class="vso-tab" data-vso-target="oral-sprays">Oral Sprays</button>
-            <button type="button" class="vso-tab" data-vso-target="phytosomes">Phytosomes</button>
-            <button type="button" class="vso-tab" data-vso-target="chronic-disease">Chronic Disease</button>
-            <button type="button" class="vso-tab" data-vso-target="mens-wellness">Men&#8217;s Sexual Wellness</button>
-            <button type="button" class="vso-tab" data-vso-target="women-wellness">Women Wellness</button>
-            <button type="button" class="vso-tab" data-vso-target="effervescent">Effervescent</button>
-            <button type="button" class="vso-tab" data-vso-target="single-extracts">Wellness essentials</button>
+            <button type="button" class="vso-tab vso-tab-active" data-vso-group="mushrooms" data-vso-target="durt-cordyceps">Our Cordyceps</button>
+            <button type="button" class="vso-tab" data-vso-group="mushrooms" data-vso-target="mushroom-tinctures">Mushroom Tinctures</button>
+            <button type="button" class="vso-tab" data-vso-group="formats" data-vso-target="oral-sprays">Oral Sprays</button>
+            <button type="button" class="vso-tab" data-vso-group="formats" data-vso-target="phytosomes">Phytosomes</button>
+            <button type="button" class="vso-tab" data-vso-group="health" data-vso-target="chronic-disease">Chronic Disease</button>
+            <button type="button" class="vso-tab" data-vso-group="health" data-vso-target="mens-wellness">Men&#8217;s Sexual Wellness</button>
+            <button type="button" class="vso-tab" data-vso-group="health" data-vso-target="women-wellness">Women Wellness</button>
+            <button type="button" class="vso-tab" data-vso-group="formats" data-vso-target="effervescent">Effervescent</button>
+            <button type="button" class="vso-tab" data-vso-group="essentials" data-vso-target="single-extracts">Wellness essentials</button>
         </div>
 
         <!-- Scrollable product rows. The "Our Cordyceps" row now shows real product
@@ -1647,27 +1553,27 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
                 <div class="vso-cards-row">
                     <a href="durt-cordyceps-range.html#fruiting-bodies" class="vso-pcard">
                         <div class="vso-pcard-media"><img decoding="async" src="assets/products/cordyceps-filaments.png" alt="Cordyceps Filaments — dried whole fruiting bodies" loading="lazy"></div>
-                        <div class="vso-pcard-body"><h4>Cordyceps Filaments</h4></div>
+                        <div class="vso-pcard-body"><h4>Cordyceps Filaments</h4><span>Whole fruiting bodies</span></div>
                     </a>
                     <a href="durt-cordyceps-range.html#cordy-maxx" class="vso-pcard">
                         <div class="vso-pcard-media"><img decoding="async" src="assets/products/cordy-maxx-extract.png?v=2" alt="Cordyceps Extract Powder (Cordy Maxx)" loading="lazy"></div>
-                        <div class="vso-pcard-body"><h4>Cordy Maxx Extract Powder</h4></div>
+                        <div class="vso-pcard-body"><h4>Cordy Maxx Extract Powder</h4><span>Extract powder</span></div>
                     </a>
                     <a href="durt-cordyceps-range.html#capsules" class="vso-pcard">
                         <div class="vso-pcard-media"><img decoding="async" src="assets/wp/uploads/2026/08/Cordyceps-Extract-CapsulesTablet.webp" alt="Cordyceps Extract Tablets / Capsules (Eucordy)" loading="lazy"></div>
-                        <div class="vso-pcard-body"><h4>Eucordy Tablets</h4></div>
+                        <div class="vso-pcard-body"><h4>Eucordy Tablets</h4><span>Tablets &amp; capsules</span></div>
                     </a>
                     <a href="durt-cordyceps-range.html#tincture" class="vso-pcard">
                         <div class="vso-pcard-media"><img decoding="async" src="assets/products/tincture-cordyceps.png" alt="Cordyceps Double Extract Tincture (Cordy Amrit)" loading="lazy"></div>
-                        <div class="vso-pcard-body"><h4>Tinctures</h4></div>
+                        <div class="vso-pcard-body"><h4>Tinctures</h4><span>Liquid tincture</span></div>
                     </a>
                     <a href="durt-cordyceps-range.html#coffee" class="vso-pcard">
                         <div class="vso-pcard-media"><img decoding="async" src="assets/products/cordyceps-coffee.jpg" alt="Cordyceps extract + Coffee (Cordy Verve)" loading="lazy"></div>
-                        <div class="vso-pcard-body"><h4>Cordyceps extract + Coffee (Cordy Verve)</h4></div>
+                        <div class="vso-pcard-body"><h4>Cordyceps extract + Coffee (Cordy Verve)</h4><span>Functional coffee</span></div>
                     </a>
                     <a href="durt-cordyceps-range.html#green-tea" class="vso-pcard">
                         <div class="vso-pcard-media"><img decoding="async" src="assets/wp/uploads/2026/08/Cordyceps-Green-Tea-Extract.webp" alt="Cordyceps extract + Green tea (Aarogya)" loading="lazy"></div>
-                        <div class="vso-pcard-body"><h4>Cordyceps extract + Green tea (Aarogya)</h4></div>
+                        <div class="vso-pcard-body"><h4>Cordyceps extract + Green tea (Aarogya)</h4><span>Functional green tea</span></div>
                     </a>
                 </div>
                 <div class="vso-row-viewall">
@@ -1954,25 +1860,51 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
     (function () {
         var tabs = document.querySelectorAll('#vsoTabs .vso-tab');
         var panels = document.querySelectorAll('#vsoPanels .vso-panel');
-        tabs.forEach(function (tab) {
-            tab.addEventListener('click', function () {
-                var target = tab.getAttribute('data-vso-target');
-                tabs.forEach(function (t) { t.classList.remove('vso-tab-active'); });
-                panels.forEach(function (p) { p.classList.remove('vso-panel-active'); });
-                tab.classList.add('vso-tab-active');
-                var panel = document.querySelector('#vsoPanels .vso-panel[data-vso-panel="' + target + '"]');
-                if (panel) panel.classList.add('vso-panel-active');
+        var groups = document.querySelectorAll('#vsoGroups .vso-group');
+        function showPanel(tab) {
+            var target = tab.getAttribute('data-vso-target');
+            tabs.forEach(function (t) { t.classList.remove('vso-tab-active'); });
+            panels.forEach(function (p) { p.classList.remove('vso-panel-active'); });
+            tab.classList.add('vso-tab-active');
+            var panel = document.querySelector('#vsoPanels .vso-panel[data-vso-panel="' + target + '"]');
+            if (panel) panel.classList.add('vso-panel-active');
+        }
+        /* Groups narrow the category chips to one short row; the first chip in
+           the group opens straight away so a click always shows products. */
+        function showGroup(g) {
+            var first = null;
+            groups.forEach(function (b) {
+                var on = b.getAttribute('data-vso-group') === g;
+                b.classList.toggle('vso-group-active', on);
+                b.setAttribute('aria-selected', on ? 'true' : 'false');
             });
-        });
+            tabs.forEach(function (t) {
+                var on = t.getAttribute('data-vso-group') === g;
+                t.hidden = !on;
+                if (on && !first) first = t;
+            });
+            if (first) showPanel(first);
+        }
+        tabs.forEach(function (tab) { tab.addEventListener('click', function () { showPanel(tab); }); });
+        groups.forEach(function (b) { b.addEventListener('click', function () { showGroup(b.getAttribute('data-vso-group')); }); });
+        showGroup('mushrooms');
     })();
 </script>
+
+<!-- ================= INLINE QUOTE STRIP ================= -->
+<section class="vx-quote-strip" aria-label="Request a quote">
+    <div class="vx-quote-strip-inner">
+        <p><strong>Have a brief?</strong> Tell us what you want to make. Our team replies within 1&ndash;2 business days.</p>
+        <a href="#contact" class="vx-btn-quote">Request a Quote</a>
+    </div>
+</section>
 
 <!-- ================= REVIEWS ================= -->
 <section class="vts-testi" aria-label="Customer reviews">
     <div class="vts-inner">
         <div class="vts-head">
             <div class="vts-badge"><span class="vts-stars">★★★★★</span> Trusted by growing wellness brands</div>
-            <h2>Reviews</h2>
+            <h2>What our partners say</h2>
         </div>
         <div class="vts-grid">
             <article class="vts-card">
@@ -2242,94 +2174,12 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
     </div>
 </section>
 
-<!-- ================= FINAL CTA + FAQ ================= -->
-<section class="vfaq-final">
-    <div class="vfaq-cta">
-        <h2>Let's Build the Future of Wellness Together</h2>
-        <p>From concept to shelf, Vivid Nutripharm is the manufacturing partner behind your next breakthrough product.</p>
-        <div class="vfaq-social">
-            <a href="https://www.instagram.com/vividnutripharm/" target="_blank" rel="noopener noreferrer" aria-label="Vivid Nutripharm on Instagram">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.3.06 2.2.27 2.9.55.8.3 1.4.7 2 1.3.6.6 1 1.2 1.3 2 .28.7.49 1.6.55 2.9.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.3-.27 2.2-.55 2.9-.3.8-.7 1.4-1.3 2-.6.6-1.2 1-2 1.3-.7.28-1.6.49-2.9.55-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.3-.06-2.2-.27-2.9-.55-.8-.3-1.4-.7-2-1.3-.6-.6-1-1.2-1.3-2-.28-.7-.49-1.6-.55-2.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.3.27-2.2.55-2.9.3-.8.7-1.4 1.3-2 .6-.6 1.2-1 2-1.3.7-.28 1.6-.49 2.9-.55C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.14 0-3.5 0-4.75.07-1.06.05-1.63.23-2.02.38-.5.2-.87.43-1.25.81-.38.38-.61.75-.81 1.25-.15.39-.33.96-.38 2.02C2.72 8.5 2.72 8.86 2.72 12s0 3.5.07 4.75c.05 1.06.23 1.63.38 2.02.2.5.43.87.81 1.25.38.38.75.61 1.25.81.39.15.96.33 2.02.38 1.25.06 1.61.07 4.75.07s3.5 0 4.75-.07c1.06-.05 1.63-.23 2.02-.38.5-.2.87-.43 1.25-.81.38-.38.61-.75.81-1.25.15-.39.33-.96.38-2.02.06-1.25.07-1.61.07-4.75s0-3.5-.07-4.75c-.05-1.06-.23-1.63-.38-2.02-.2-.5-.43-.87-.81-1.25a3.35 3.35 0 0 0-1.25-.81c-.39-.15-.96-.33-2.02-.38C15.5 4 15.14 4 12 4zm0 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 1.8a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4zm5.7-1.98a1.05 1.05 0 1 1-2.1 0 1.05 1.05 0 0 1 2.1 0z"></path></svg>
-            </a>
-            <a href="https://twitter.com/vividnutripharm" target="_blank" rel="noopener noreferrer" aria-label="Vivid Nutripharm on Twitter / X">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 3H21.7l-6.1 7 7.2 9.5h-5.6l-4.4-5.8-5 5.8H4.9l6.6-7.5L4.6 3h5.7l4 5.3L18.9 3zm-1 15h1.6L8.2 4.9H6.5L17.9 18z"></path></svg>
-            </a>
-            <a href="https://www.linkedin.com/company/vividnutripharm/" target="_blank" rel="noopener noreferrer" aria-label="Vivid Nutripharm on LinkedIn">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.94 8.5H3.56V20.4h3.38V8.5zM5.25 3.1a1.96 1.96 0 1 0 0 3.92 1.96 1.96 0 0 0 0-3.92zM20.4 20.4h-3.37v-6.24c0-1.49-.03-3.4-2.07-3.4-2.08 0-2.4 1.62-2.4 3.3v6.34H9.2V8.5h3.24v1.62h.05c.45-.86 1.56-1.77 3.2-1.77 3.43 0 4.06 2.26 4.06 5.2v6.85z"></path></svg>
-            </a>
-            <a href="https://www.facebook.com/vividnutripharm/" target="_blank" rel="noopener noreferrer" aria-label="Vivid Nutripharm on Facebook">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.9 21v-7.6h2.55l.38-2.96h-2.93V8.55c0-.86.24-1.44 1.47-1.44h1.57V4.46c-.27-.04-1.2-.12-2.28-.12-2.26 0-3.8 1.38-3.8 3.9v2.2H8.4v2.96h2.46V21h3.04z"></path></svg>
-            </a>
-        </div>
-        <a href="contact.html" class="vfaq-cta-btn">Partner With Us</a>
-    </div>
-    <div class="vfaq-inner" id="vfaqAccordion">
-        <div class="vfaq-item">
-            <button class="vfaq-q" type="button">
-                What kind of products can Vivid Nutripharm manufacture?
-                <span class="vfaq-plus"></span>
-            </button>
-            <div class="vfaq-a"><p>Vivid Nutripharm manufactures advanced nutraceuticals, herbal, vitamin, mineral, sports nutrition, and targeted wellness formulations. Available in diverse formats including tablets, capsules, oral sprays, effervescents, powders, liquids, tinctures and innovative delivery systems such as phytosomes and liposomes.</p></div>
-        </div>
-        <div class="vfaq-item">
-            <button class="vfaq-q" type="button">
-                Do you offer private label / white label manufacturing?
-                <span class="vfaq-plus"></span>
-            </button>
-            <div class="vfaq-a"><p>Yes — we support brands from concept and formulation through to packaging, regulatory support, and market-ready production.</p></div>
-        </div>
-        <div class="vfaq-item">
-            <button class="vfaq-q" type="button">
-                What certifications does Vivid Nutripharm hold?
-                <span class="vfaq-plus"></span>
-            </button>
-            <div class="vfaq-a"><p>We're DPIIT Recognized, FSSAI Certified, ISO 9001:2015 certified, GMP Certified, and compliant with EU Organic and USDA Organic standards.</p></div>
-        </div>
-        <div class="vfaq-item">
-            <button class="vfaq-q" type="button">
-                What is your typical development timeline?
-                <span class="vfaq-plus"></span>
-            </button>
-            <div class="vfaq-a"><p>Timelines vary by product complexity and testing requirements — our team will give you a clear timeline once we understand your formulation and volume needs.</p></div>
-        </div>
-        <div class="vfaq-item">
-            <button class="vfaq-q" type="button">
-                What is BioEnh™ and how is it different from standard formulations?
-                <span class="vfaq-plus"></span>
-            </button>
-            <div class="vfaq-a"><p>BioEnh™ is our proprietary bioavailability enhancement technology, designed to help the body absorb and use active ingredients more effectively than conventional formulations.</p></div>
-        </div>
-        <div class="vfaq-item">
-            <button class="vfaq-q" type="button">
-                How do I get started with Vivid Nutripharm?
-                <span class="vfaq-plus"></span>
-            </button>
-            <div class="vfaq-a"><p>Reach out through our Contact page with your product idea or requirements, and our team will walk you through the next steps.</p></div>
-        </div>
-    </div>
-</section>
-
-<script>
-    (function () {
-        var faqWrap = document.getElementById('vfaqAccordion');
-        if (!faqWrap) return;
-        faqWrap.querySelectorAll('.vfaq-item').forEach(function (item) {
-            var q = item.querySelector('.vfaq-q');
-            q.addEventListener('click', function () {
-                var wasOpen = item.classList.contains('vfaq-open');
-                faqWrap.querySelectorAll('.vfaq-item').forEach(function (i) { i.classList.remove('vfaq-open'); });
-                if (!wasOpen) item.classList.add('vfaq-open');
-            });
-        });
-    })();
-</script>
-
 <!-- ================= CONTACT US ================= -->
 <section class="vcf-contact" id="contact">
     <div class="vcf-inner">
         <div class="vcf-info">
-            <span class="vcf-info-eyebrow">Get In Touch</span>
-            <h2>Let's Talk About Your Next Product</h2>
+            <span class="vcf-info-eyebrow">Let&#8217;s talk about your next product</span>
+            <h2>Request a quote</h2>
             <p>Have a formulation idea, a private-label brief, or a question about our manufacturing capabilities? Send us a note and our team will get back to you shortly.</p>
 
             <ul class="vcf-info-list">
@@ -2421,6 +2271,96 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
         </div>
     </div>
 </section>
+
+<a href="#contact" class="vx-sticky-quote" id="vxStickyQuote" aria-hidden="true" tabindex="-1">Request a Quote</a>
+<script>
+    (function () {
+        /* Shows once the hero CTA has scrolled away; hides while another quote button (strip or form) is on screen. */
+        var bar = document.getElementById('vxStickyQuote');
+        var hero = document.querySelector('.vhs-hero');
+        var form = document.getElementById('contact');
+        var strip = document.querySelector('.vx-quote-strip');
+        if (!bar || !hero || !form || !('IntersectionObserver' in window)) return;
+        var heroVisible = true, formVisible = false, stripVisible = false;
+        function sync() {
+            var on = !heroVisible && !formVisible && !stripVisible;
+            bar.classList.toggle('vx-sticky-on', on);
+            bar.setAttribute('aria-hidden', on ? 'false' : 'true');
+            bar.tabIndex = on ? 0 : -1;
+        }
+        new IntersectionObserver(function (e) { heroVisible = e[0].isIntersecting; sync(); }).observe(hero);
+        new IntersectionObserver(function (e) { formVisible = e[0].isIntersecting; sync(); }).observe(form);
+        if (strip) new IntersectionObserver(function (e) { stripVisible = e[0].isIntersecting; sync(); }).observe(strip);
+    })();
+</script>
+
+<!-- ================= FAQ ================= -->
+<section class="vfaq-final">
+    <div class="vfaq-cta">
+        <h2>Frequently asked questions</h2>
+        <p>Still deciding? These are the questions brands ask us most.</p>
+    </div>
+    <div class="vfaq-inner" id="vfaqAccordion">
+        <div class="vfaq-item">
+            <button class="vfaq-q" type="button">
+                What kind of products can Vivid Nutripharm manufacture?
+                <span class="vfaq-plus"></span>
+            </button>
+            <div class="vfaq-a"><p>Vivid Nutripharm manufactures advanced nutraceuticals, herbal, vitamin, mineral, sports nutrition, and targeted wellness formulations. Available in diverse formats including tablets, capsules, oral sprays, effervescents, powders, liquids, tinctures and innovative delivery systems such as phytosomes and liposomes.</p></div>
+        </div>
+        <div class="vfaq-item">
+            <button class="vfaq-q" type="button">
+                Do you offer private label / white label manufacturing?
+                <span class="vfaq-plus"></span>
+            </button>
+            <div class="vfaq-a"><p>Yes — we support brands from concept and formulation through to packaging, regulatory support, and market-ready production.</p></div>
+        </div>
+        <div class="vfaq-item">
+            <button class="vfaq-q" type="button">
+                What certifications does Vivid Nutripharm hold?
+                <span class="vfaq-plus"></span>
+            </button>
+            <div class="vfaq-a"><p>We're DPIIT Recognized, FSSAI Certified, ISO 9001:2015 certified, GMP Certified, and compliant with EU Organic and USDA Organic standards.</p></div>
+        </div>
+        <div class="vfaq-item">
+            <button class="vfaq-q" type="button">
+                What is your typical development timeline?
+                <span class="vfaq-plus"></span>
+            </button>
+            <div class="vfaq-a"><p>Timelines vary by product complexity and testing requirements — our team will give you a clear timeline once we understand your formulation and volume needs.</p></div>
+        </div>
+        <div class="vfaq-item">
+            <button class="vfaq-q" type="button">
+                What is BioEnh™ and how is it different from standard formulations?
+                <span class="vfaq-plus"></span>
+            </button>
+            <div class="vfaq-a"><p>BioEnh™ is our proprietary bioavailability enhancement technology, designed to help the body absorb and use active ingredients more effectively than conventional formulations.</p></div>
+        </div>
+        <div class="vfaq-item">
+            <button class="vfaq-q" type="button">
+                How do I get started with Vivid Nutripharm?
+                <span class="vfaq-plus"></span>
+            </button>
+            <div class="vfaq-a"><p>Send us your product idea or requirements through the <a href="#contact">enquiry form</a>, and our team will walk you through the next steps.</p></div>
+        </div>
+    </div>
+</section>
+
+<script>
+    (function () {
+        var faqWrap = document.getElementById('vfaqAccordion');
+        if (!faqWrap) return;
+        faqWrap.querySelectorAll('.vfaq-item').forEach(function (item) {
+            var q = item.querySelector('.vfaq-q');
+            q.addEventListener('click', function () {
+                var wasOpen = item.classList.contains('vfaq-open');
+                faqWrap.querySelectorAll('.vfaq-item').forEach(function (i) { i.classList.remove('vfaq-open'); });
+                if (!wasOpen) item.classList.add('vfaq-open');
+            });
+        });
+    })();
+</script>
+
 
 <script>
     /* Front-end handling only: validates the required fields and shows a
