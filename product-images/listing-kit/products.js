@@ -1,0 +1,77 @@
+// Listing-image content per product. Copy comes from the product information
+// tables supplied for the website ("spray information for website").
+// colours: a = deep end of the pack gradient, b = bright end.
+window.PRODUCTS = {
+  zma: {
+    folder: 'zma-oral-spray', galleryId: 'zma', name: 'ZMA', short: 'ZMA',
+    colours: { a: '#1f327d', b: '#2aa4cc' },
+    particles: ['Zn', 'Mg', 'B6'],
+    s2: { eyebrow: 'Zinc · Magnesium · Vitamin B6', headline: 'Built for<br><em>recovery</em> &amp;<br>performance',
+      items: [['muscle', 'Muscle recovery', 'Helps support muscle recovery'],
+              ['bolt', 'Strength & performance', 'Promotes muscle strength and performance'],
+              ['male', 'Healthy testosterone', 'Supports healthy testosterone levels']] },
+    s3: { eyebrow: 'Why our ZMA spray', headline: 'Formulated to fit <em>your brand</em>',
+      wide: ['atoms', 'Zinc + Magnesium + Vitamin B6', 'A combination designed to support sleep, recovery and muscle function.'],
+      cards: [['mouth', 'Sublingual & Buccal Delivery', 'Designed for delivery through oral mucosal tissues.'],
+              ['shield', 'FSSAI | ISO | GMP', 'Manufactured in certified quality-controlled facilities.'],
+              ['sliders', 'Customizable Flavour & Dosage', 'Tailored formulations to meet brand requirements.'],
+              ['fruit', 'Assorted Flavours', 'Available in a range of flavour options.']] },
+    s4: { headline: 'A powerful<br>blend', tiles: [['Mg', 'Magnesium'], ['Zn', 'Zinc'], ['B6', 'Vitamin B6']], badge: '30 mL &nbsp;|&nbsp; 30 Days per pack' },
+    s5: { eyebrow: 'Everyday support', headline: 'Wellness made <em>simple</em>',
+      points: [['spray', 'Convenient Oral Delivery', 'Designed for oral administration, offering a convenient alternative to conventional tablets and capsules.'],
+               ['atoms', 'Essential Nutrient Combination', 'Combines Zinc, Magnesium and Vitamin B6 to support normal muscle function, nervous system function and energy metabolism.'],
+               ['moon', 'Daily Wellness & Recovery Support', 'Designed to complement daily nutritional needs associated with relaxation, muscle recovery and general wellness.']] },
+    s6: { pros: ['Helps maintain energy & vitality', 'Helps muscle recovery', 'Supports normal muscle function'],
+          cons: ['Requires swallowing', 'May be less convenient for some users', 'Requires water for swallowing'] },
+    s8: { headline: 'Available in <em>assorted flavours</em>' }
+  },
+
+  'vo2-maxx': {
+    folder: 'vo2-maxx-oral-spray', galleryId: 'vo2-maxx', name: 'VO2 Maxx', short: 'VO2 Maxx',
+    colours: { a: '#1f9a92', b: '#2f62bb' },
+    particles: ['O₂', 'β', 'O₂'],
+    s2: { eyebrow: 'Cordyceps · Rhodiola · Beta-Alanine', headline: 'Built for<br><em>stamina</em> &amp;<br>endurance',
+      items: [['run', 'Physical stamina', 'Supports physical stamina'],
+              ['muscle', 'Workout recovery', 'Promotes workout recovery'],
+              ['lungs', 'Oxygen & endurance', 'Supports oxygen utilization and endurance']] },
+    s3: { eyebrow: 'Why our VO2 Maxx spray', headline: 'Formulated to fit <em>your brand</em>',
+      wide: ['atoms', 'Cordyceps + Rhodiola + Beta-Alanine + Catechin', 'A performance-focused blend designed to support stamina, endurance and exercise performance.'],
+      cards: [['mouth', 'Sublingual & Buccal Delivery', 'Designed for delivery through oral mucosal tissues.'],
+              ['shield', 'FSSAI | ISO | GMP', 'Manufactured under quality-controlled standards.'],
+              ['sliders', 'Customizable Flavour & Dosage', 'Tailored formulations to meet brand requirements.'],
+              ['fruit', 'Assorted Flavours', 'Available in a range of flavour options.']] },
+    s4: { headline: 'A powerful<br>blend', tiles: [['@mushroom', 'Cordyceps'], ['@flower', 'Rhodiola'], ['@bolt', 'Beta-Alanine'], ['@leaf', 'Catechin']], badge: '30 mL &nbsp;|&nbsp; 30 Days per pack' },
+    s5: { eyebrow: 'Everyday support', headline: 'Performance made <em>simple</em>',
+      points: [['spray', 'Convenient Oral Delivery', 'Designed for oral administration, offering a convenient alternative to conventional tablets and capsules.'],
+               ['atoms', 'Advanced Performance Ingredient Combination', 'Combines Cordyceps, Rhodiola, Beta-Alanine and Catechin to support exercise performance and physical endurance.'],
+               ['bolt', 'Energy & Endurance Support', 'Designed to complement active lifestyles by supporting stamina, workout performance and physical wellness.']] },
+    s6: { pros: ['Supports physical stamina and endurance', 'Helps support exercise performance', 'Supports energy metabolism and muscle function'],
+          cons: ['Requires swallowing', 'May be less convenient during workouts', 'Requires water for swallowing'] },
+    s8: { headline: 'Available in <em>assorted flavours</em>' }
+  },
+
+  multivitamin: {
+    folder: 'multivitamin-oral-spray', galleryId: 'multivitamin', name: 'Multivitamin', short: 'Multivitamin',
+    colours: { a: '#c03095', b: '#e95a44' },
+    particles: ['A', 'B', 'C', 'D', 'E'],
+    s2: { eyebrow: 'Vitamins A · B · C · D · E', headline: 'Everyday<br><em>nutrition</em>,<br>simplified',
+      items: [['shield', 'Immune function', 'Helps maintain immune function'],
+              ['fruit', 'Daily nutrition', 'Supports daily nutritional requirements'],
+              ['bolt', 'Energy metabolism', 'Supports energy metabolism']] },
+    s3: { eyebrow: 'Why our multivitamin spray', headline: 'Advanced <em>liposomal</em> delivery',
+      wide: ['lipo', 'Liposomal Encapsulation', 'Nano-sized phospholipid vesicles.'],
+      cards: [['mouth', 'Sublingual & Buccal Delivery', 'Delivery through oral mucosal tissues.'],
+              ['shield', 'FSSAI | ISO | GMP', 'Certified manufacturing.'],
+              ['fruit', 'Assorted Flavours', 'Available in a range of flavour options.'],
+              ['sliders', 'Customizable Flavour & Dosage', 'Tailored to meet brand requirements.']] },
+    s4: { headline: 'A complete<br>daily blend', tiles: [['B', 'B-Complex', 'Vitamins'], ['ADE', 'Fat-soluble', 'Vitamins A, D &amp; E']], badge: '30 mL &nbsp;|&nbsp; 30-day pack' },
+    s5: { eyebrow: 'How it works', headline: 'The <em>multivitamin</em> advantage',
+      points: [['layers', 'Bridges Daily Nutritional Gaps', 'Delivers a balanced blend of essential vitamins (A, B-complex, C, D, E) to combat modern dietary deficiencies (“hidden hunger”).'],
+               ['bolt', 'All-Day Energy & Vitality', 'Supports sustained physical stamina and reduces everyday fatigue.'],
+               ['shield', 'Comprehensive Immune Defense', 'Strengthens the body’s natural barrier against seasonal illnesses and oxidative stress.'],
+               ['drop', 'Superior Bioavailability', 'Ensures water- and fat-soluble vitamins are absorbed rapidly rather than lost during digestion.']] },
+    s6: { pros: ['Direct bloodstream absorption', 'Stomach-friendly formula', 'Clean, crisp flavours'],
+          cons: ['Low gut absorption', 'Triggers nausea & reflux', 'Heavy, chalky aftertaste'] },
+    s8: { headline: 'Available in <em>assorted flavours</em>' }
+  }
+};

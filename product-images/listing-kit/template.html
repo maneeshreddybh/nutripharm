@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Listing images</title>
+<style>
+  :root{ --ink:#1b2240; --muted:#5f6478; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#888;font-family:"Inter",sans-serif;color:var(--ink)}
+  .slide{width:1000px;height:1000px;position:relative;overflow:hidden;background:#fff;margin:20px auto;isolation:isolate}
+  h1{font-family:"Inter Display","Inter",sans-serif;letter-spacing:-.02em}
+  .eyebrow{font-size:17px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+  .h{font-size:64px;line-height:1.02;font-weight:800;color:var(--ink)}
+  .h em{font-style:normal;color:var(--accent)}
+  .sub{font-size:22px;line-height:1.45;color:var(--muted)}
+  .brandmark{position:absolute;left:60px;bottom:44px;font-weight:800;font-size:20px;letter-spacing:.06em;color:var(--ink)}
+  .brandmark span{font-weight:600;font-size:13px;letter-spacing:.24em;display:block;color:var(--muted)}
+  .icon{width:84px;height:84px;border-radius:50%;background:linear-gradient(145deg,var(--a),var(--b));display:grid;place-items:center;flex:none;box-shadow:0 10px 24px var(--shadow)}
+  .icon svg{width:46px;height:46px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .shadow{position:absolute;border-radius:50%;background:radial-gradient(closest-side,rgba(20,25,50,.26),rgba(20,25,50,0))}
+  .blob{position:absolute;border-radius:50%}
+  .ct{font-size:25px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+  .cs{font-size:19px;line-height:1.42;color:var(--muted);margin-top:8px}
+  .card{background:#fff;border:1.5px solid var(--line);border-radius:28px;box-shadow:0 14px 34px var(--shadow-soft)}
+  .bottle{width:85.4%;display:block;margin:0 auto}
+  .deco{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+  .band{position:absolute;left:0;right:0;top:0;z-index:-1}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="products.js"></script>
+<script src="kit.js"></script>
+</body>
+</html>
