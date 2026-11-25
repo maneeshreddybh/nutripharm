@@ -17,23 +17,23 @@ S = 2  # work at 2x the photo resolution
 # hue = target hue for the orange brand colour, smul/vmul = saturation/value
 SKUS = [
   dict(id='multivitamin', l1='Liposomal', l2='Multivitamin', icon='sparkle', lipo=True,
-       band='6Puffs/Day | Assorted Flavours', hue=282, smul=.85, vmul=.72, colour='Berry Purple'),
+       band='6Puffs/Day | Assorted Flavours', hue=282, smul=.85, vmul=.72, grad=((318,.90,.80),(8,.85,.97)), colour='Magenta → Coral'),
   dict(id='vitamin-c', l1='Oral Spray', l2='Vitamin C', icon='citrus', lipo=False,
-       band='Metered Spray | Assorted Flavours', hue=82, smul=.95, vmul=.80, colour='Lime'),
+       band='Metered Spray | Assorted Flavours', hue=82, smul=.95, vmul=.80, grad=((50,1.0,1.0),(20,1.0,.95)), colour='Yellow → Orange'),
   dict(id='iron', l1='Oral Spray', l2='Iron', icon='blood', lipo=False,
-       band='Metered Spray | Assorted Flavours', hue=358, smul=.90, vmul=.82, colour='Ruby Red'),
+       band='Metered Spray | Assorted Flavours', hue=358, smul=.90, vmul=.82, grad=((354,.95,.82),(26,1.0,1.0)), colour='Red → Orange'),
   dict(id='zma', l1='Oral Spray', l2='ZMA', icon='moon', lipo=False,
-       band='6Puffs/Day | Assorted Flavours', hue=226, smul=.90, vmul=.62, colour='Midnight Blue'),
+       band='6Puffs/Day | Assorted Flavours', hue=226, smul=.90, vmul=.62, grad=((228,.90,.52),(195,.95,.85)), colour='Navy → Sky Blue'),
   dict(id='erectile-dysfunction', l1='Erectile', l2='Dysfunction', icon='heart', lipo=False,
-       band='Metered Spray | Assorted Flavours', hue=338, smul=.85, vmul=.52, colour='Wine'),
+       band='Metered Spray | Assorted Flavours', hue=338, smul=.85, vmul=.52, grad=((292,.80,.50),(330,.75,.90)), colour='Plum → Rose'),
   dict(id='testoboost', l1='Oral Spray', l2='Testoboost', icon='male', lipo=False,
-       band='Metered Spray | Assorted Flavours', hue=22, smul=.95, vmul=.58, colour='Bronze'),
+       band='Metered Spray | Assorted Flavours', hue=22, smul=.95, vmul=.58, grad=((250,.80,.60),(180,.95,.75)), colour='Indigo → Teal'),
   dict(id='vo2-maxx', l1='Oral Spray', l2='VO2 Maxx', icon='bolt', lipo=False,
-       band='Metered Spray | Assorted Flavours', hue=196, smul=.95, vmul=.80, colour='Sky Blue'),
+       band='Metered Spray | Assorted Flavours', hue=196, smul=.95, vmul=.80, grad=((176,.95,.70),(218,.90,.78)), colour='Teal → Blue'),
   dict(id='smokers-cough', l1="Smoker's", l2='Cough', icon='lungs', lipo=False,
-       band='Metered Spray | Assorted Flavours', hue=142, smul=.85, vmul=.62, colour='Forest Green'),
+       band='Metered Spray | Assorted Flavours', hue=142, smul=.85, vmul=.62, grad=((128,.85,.72),(182,.95,.72)), colour='Green → Teal'),
   dict(id='biotin', l1='Oral Spray', l2='Biotin', icon='hair', lipo=False,
-       band='Metered Spray | Assorted Flavours', hue=322, smul=.75, vmul=.88, colour='Rose Pink'),
+       band='Metered Spray | Assorted Flavours', hue=322, smul=.75, vmul=.88, grad=((276,.85,.70),(330,.80,.92)), colour='Purple → Pink'),
 ]
 
 # ---- geometry in photo pixels (1000x665 source) ----------------------------
@@ -132,12 +132,19 @@ def main(cutout):
     manifest = []
     for sku in SKUS:
         a, geo = erase(base, sku)
-        rec = recolour_px(a.astype(float) / 255, sku['hue'], sku['smul'], sku['vmul'])
-        img = np.dstack([(rec * 255).clip(0, 255).astype(np.uint8), alpha])
+        if sku.get('grad'):
+            from gradients import gradient_recolour
+            rgba = np.dstack([a, alpha]).astype(float) / 255
+            img = (gradient_recolour(rgba, *sku['grad']) * 255).clip(0, 255).astype(np.uint8)
+        else:
+            rec = recolour_px(a.astype(float) / 255, sku['hue'], sku['smul'], sku['vmul'])
+            img = np.dstack([(rec * 255).clip(0, 255).astype(np.uint8), alpha])
         Image.fromarray(img, 'RGBA').save(os.path.join(out_dir, f"{sku['id']}-template.png"))
         manifest.append(dict(sku, geo=geo, w=img.shape[1], h=img.shape[0],
                              icon_colour=colour_of((226, 152, 52), sku),
-                             swatch=colour_of((240, 160, 40), sku)))
+                             swatch=colour_of((240, 160, 40), sku),
+                             icon_grad=[colour_of((226, 152, 52), dict(hue=g[0], smul=g[1], vmul=g[2])) for g in sku['grad']] if sku.get('grad') else None,
+                             swatch_grad=[colour_of((240, 160, 40), dict(hue=g[0], smul=g[1], vmul=g[2])) for g in sku['grad']] if sku.get('grad') else None))
     with open(os.path.join(out_dir, 'manifest.json'), 'w') as f:
         json.dump(manifest, f, indent=1)
     print('templates:', len(manifest))

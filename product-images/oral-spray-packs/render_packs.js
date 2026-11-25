@@ -19,8 +19,15 @@ const ICONS = {
 };
 const CREAM = '#fff7de', INK = '#38383d';
 
+let gid = 0;
 function svgIcon(name, cx, cy, size, colour, sw) {
-  return `<svg viewBox="0 0 24 24" style="position:absolute;left:${cx - size/2}px;top:${cy - size/2}px;width:${size}px;height:${size}px;overflow:visible" fill="none" stroke="${colour}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]}</svg>`;
+  let defs = '';
+  if (Array.isArray(colour)) {   // two-colour gradient stroke
+    const id = 'ig' + (gid++);
+    defs = `<defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${colour[0]}"/><stop offset="1" stop-color="${colour[1]}"/></linearGradient></defs>`;
+    colour = `url(#${id})`;
+  }
+  return `<svg viewBox="0 0 24 24" style="position:absolute;left:${cx - size/2}px;top:${cy - size/2}px;width:${size}px;height:${size}px;overflow:visible" fill="none" stroke="${colour}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${defs}${ICONS[name]}</svg>`;
 }
 function text(t, cx, cy, size, weight, colour, extra = '') {
   return `<div class="t" data-fit="${extra}" style="left:${cx}px;top:${cy}px;font-size:${size}px;font-weight:${weight};color:${colour}">${t}</div>`;
@@ -37,7 +44,7 @@ function page(s) {
     o += svgIcon(s.icon, dx, dy, isz, CREAM, (part === 'box' ? 4 : 2.8) * 24 / isz);
     if (!s.lipo) {
       const [ix, iy, ir] = g.lipo_icon;
-      o += svgIcon('nowater', ix, iy, ir * 2, s.icon_colour, 1.4);
+      o += svgIcon('nowater', ix, iy, ir * 2, s.icon_grad || s.icon_colour, 1.4);
       o += text('No Water', ix, g.lipo_l1, g.lipo_fs, 500, INK);
       o += text('Needed', ix, g.lipo_l2, g.lipo_fs, 500, INK);
     }
