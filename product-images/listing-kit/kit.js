@@ -167,7 +167,7 @@
       ${FL.map(([n, f, c1, c2, bg]) => `<div class="flv" data-flavour="${n}" style="background:${bg};border-radius:30px;height:690px;position:relative;overflow:hidden;isolation:isolate">
         <div class="blob" style="left:5px;top:150px;width:210px;height:210px;background:${c1};opacity:.18"></div>
         <div class="shadow" style="left:20px;top:560px;width:180px;height:34px"></div>
-        <div style="position:absolute;left:18px;top:40px;width:190px">${bottle(f)}</div>
+        <div style="position:absolute;left:18px;top:40px;width:190px">${bottle()}</div>
         <div style="position:absolute;left:0;right:0;bottom:30px;text-align:center"><div style="display:inline-block;background:${c2};color:#fff;font-weight:800;font-size:24px;padding:12px 26px;border-radius:999px">${n}</div></div>
       </div>`).join('')}
     </div>`;
