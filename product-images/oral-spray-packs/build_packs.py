@@ -19,7 +19,7 @@ SKUS = [
   dict(id='multivitamin', l1='Liposomal', l2='Multivitamin', icon='sparkle', lipo=True,
        band='6Puffs/Day | Assorted Flavours', hue=282, smul=.85, vmul=.72, grad=((318,.90,.80),(8,.85,.97)), colour='Magenta → Coral'),
   dict(id='vitamin-c', l1='Oral Spray', l2='Vitamin C', icon='citrus', lipo=False,
-       band='Metered Spray | Assorted Flavours', hue=82, smul=.95, vmul=.80, grad=((50,1.0,1.0),(20,1.0,.95)), colour='Yellow → Orange'),
+       band='Metered Spray | Assorted Flavours', hue=82, smul=.95, vmul=.80, grad=((44,1,.82),(85,.95,.72)), colour='Gold → Lime'),
   dict(id='iron', l1='Oral Spray', l2='Iron', icon='blood', lipo=False,
        band='Metered Spray | Assorted Flavours', hue=358, smul=.90, vmul=.82, grad=((354,.95,.82),(26,1.0,1.0)), colour='Red → Orange'),
   dict(id='zma', l1='Oral Spray', l2='ZMA', icon='moon', lipo=False,
@@ -33,7 +33,7 @@ SKUS = [
   dict(id='smokers-cough', l1="Smoker's", l2='Cough', icon='lungs', lipo=False,
        band='Metered Spray | Assorted Flavours', hue=142, smul=.85, vmul=.62, grad=((128,.85,.72),(182,.95,.72)), colour='Green → Teal'),
   dict(id='biotin', l1='Oral Spray', l2='Biotin', icon='hair', lipo=False,
-       band='Metered Spray | Assorted Flavours', hue=322, smul=.75, vmul=.88, grad=((276,.85,.70),(330,.80,.92)), colour='Purple → Pink'),
+       band='Metered Spray | Assorted Flavours', hue=322, smul=.75, vmul=.88, grad=((338,.75,.88),(14,.75,.97)), colour='Rose → Peach'),
 ]
 
 # ---- geometry in photo pixels (1000x665 source) ----------------------------

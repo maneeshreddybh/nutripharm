@@ -2,7 +2,7 @@
 // Usage: node render_packs.js   (after build_packs.py)
 const { chromium } = require('playwright');
 const fs = require('fs'), path = require('path');
-const DIR = __dirname, BUILD = path.join(DIR, 'build');
+const DIR = __dirname, BUILD = process.env.PACK_BUILD || path.join(DIR, 'build');
 const M = JSON.parse(fs.readFileSync(path.join(BUILD, 'manifest.json'), 'utf8'));
 
 const ICONS = {
