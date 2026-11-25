@@ -1,6 +1,6 @@
 # Vivid Nutripharm
 
-Version: 1.1.0 (see `VERSION`)
+Version: 1.2.0 (see `VERSION`)
 
 The static marketing website for **Vivid Nutripharm**, a nutraceutical manufacturing partner. It covers private label, white label and bulk-ingredient work. The site started as a mirror of the live WordPress build and has been extended by hand. It is plain HTML, CSS and JavaScript with no build step, and is set up for GitHub Pages.
 
@@ -25,6 +25,7 @@ The static marketing website for **Vivid Nutripharm**, a nutraceutical manufactu
 │   └── cordyceps-benefits-variants.html  # Design sandbox: four alternative Cordyceps benefit layouts (not linked from the site)
 ├── assets/                          # Large images are WebP (converted from PNG, same dimensions)
 │   ├── cert-orbit.css               # Styles for the certification badge orbit
+│   ├── vivid-logo-trimmed.webp       # Header logo, cropped to the visible mark
 │   ├── product-disc.webp, cordyceps-subject.webp, product-lifecycle.webp,
 │   │   certification-badges-transparent.webp
 │   ├── products/                    # Local product and hero images (sprays, tinctures, phytosomes, effervescents, Cordyceps)
@@ -43,7 +44,7 @@ The static marketing website for **Vivid Nutripharm**, a nutraceutical manufactu
 
 | Page | File | Notes |
 |---|---|---|
-| Home | `index.html` | Hero, capabilities, technology platforms, process graphic (inline SVG), reviews, team, facilities, certifications, contact form |
+| Home | `index.html` | Hero (proof stats + "Request a Quote"), capabilities grid, technology platforms, grouped product browser, inline quote strip, reviews, team, facilities, certifications, contact form, FAQ, mobile sticky quote bar |
 | About Us | `about-us.html` | Company story, quality standards, integrated capabilities, approach |
 | Solutions | `solutions.html` | Two solution paths, partner types, development journey, categories, delivery formats |
 | Contact | `contact.html` | Contact details, map links, enquiry form |
@@ -80,7 +81,8 @@ The `id` values come from each page's `products` array (listed in the table abov
 - **FAQs:** category pages render their FAQ list from inline data into `#faq-list`.
 - **Cordyceps benefits:** the interactive system map in `durt-cordyceps-range.html` is driven by an inline list of benefit entries (`title` and description). Alternative layouts are kept in `design-explorations/`.
 - **Images:** put new local images under `assets/products/`. Use WebP for large images (quality 88–95 keeps them visually identical), and keep PNG only for favicons and small graphics. Images copied from WordPress are under `assets/wp/uploads/`. When you replace an image that browsers have already cached, add a cache-busting query (for example `?v=2`).
-- **Shared header and footer:** these are duplicated in every HTML file. A change to navigation, contact details or the footer has to be made in each page.
+- **Primary action colour:** leaf green `#7cc242` with deep-green text is reserved for "Request a Quote" (header, hero, quote strip, form). Secondary actions are text links.
+- **Shared header and footer:** these are duplicated in every HTML file. The header hides while scrolling down and returns on scroll up. A change to navigation, contact details or the footer has to be made in each page.
 
 ## External dependencies
 

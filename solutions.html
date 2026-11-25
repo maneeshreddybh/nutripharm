@@ -67,7 +67,7 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
 			(function(){if(window.matchMedia('(max-width:921.99px)').matches){document.body.classList.add('ast-header-break-point');document.body.classList.remove('ast-desktop');}})();
 			</script>
 			    <style>
-        html { scroll-padding-top: 150px; }
+        html { scroll-padding-top: 96px; }
         /* Astra lays #content and #primary out as flex items. Their default
            min-width:auto resolves to min-content, so wide descendants inflate
            the page width instead of wrapping. Letting them shrink keeps the
@@ -84,11 +84,21 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
             grid-template-columns: auto 1fr;
             align-items: center;
             gap: 20px;
-            padding: 15px 40px;
+            padding: 10px 40px;
             border-top: 3px solid #0a3d2e;
             font-family: 'Inter', Arial, Helvetica, sans-serif;
             background: #fff;
             overflow: visible;
+        }
+
+        .vivid-header {
+            transition: transform 0.3s ease;
+        }
+        .vivid-header.vivid-header-hidden {
+            transform: translateY(-100%);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .vivid-header { transition: none; }
         }
 
         .vivid-header .vivid-logo,
@@ -115,7 +125,8 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
             grid-column: 1;
         }
         .vivid-header .vivid-logo img {
-            max-height: 104px;
+            height: 46px;
+            width: auto;
             display: block;
             transition: transform 0.3s ease;
         }
@@ -177,9 +188,9 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
         /* Single CTA button - styled inline for desktop, full width in mobile dropdown */
         .vivid-header .vivid-nav .vivid-btn {
             text-decoration: none;
-            background: #0a3d2e;
-            color: #fff !important;
-            padding: 10px 22px;
+            background: #7cc242;
+            color: #0a3d2e !important;
+            padding: 11px 24px;
             border-radius: 30px;
             font-size: 14px;
             font-weight: 600;
@@ -190,10 +201,10 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
             display: none;
         }
         .vivid-header .vivid-nav .vivid-btn:hover {
-            color: #fff !important;
+            color: #0a3d2e !important;
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(10, 61, 46, 0.35);
-            background: #0d5240;
+            box-shadow: 0 6px 16px rgba(124, 194, 66, 0.45);
+            background: #8fd25a;
         }
 
         /* ---- Solutions dropdown (desktop: hover) ---- */
@@ -414,7 +425,7 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
     <header class="vivid-header" id="vividStickyHeader">
         <div class="vivid-logo">
             <a href="index.html">
-                <img src="assets/wp/uploads/2026/08/ChatGPT-Image-Aug-6-2026-08_48_23-AM.webp" alt="Vivid Nutripharm">
+                <img src="assets/vivid-logo-trimmed.webp" alt="Vivid Nutripharm" width="360" height="185">
             </a>
         </div>
 
@@ -443,7 +454,7 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
                 </div>
 
             </div>
-            <a href="contact.html" class="vivid-btn">Let's Build Together</a>
+            <a href="contact.html" class="vivid-btn">Request a Quote</a>
         </nav>
 
         <button class="vivid-burger" id="vividBurger" aria-label="Toggle menu">
@@ -452,6 +463,28 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
             <span></span>
         </button>
     </header>
+
+    <script>
+        (function () {
+            /* Hide the header while scrolling down, bring it back on any scroll up. */
+            var header = document.getElementById('vividStickyHeader');
+            var nav = document.getElementById('vividNav');
+            if (!header) return;
+            var lastY = window.pageYOffset, ticking = false;
+            window.addEventListener('scroll', function () {
+                if (ticking) return;
+                ticking = true;
+                window.requestAnimationFrame(function () {
+                    var y = window.pageYOffset;
+                    var menuOpen = nav && nav.classList.contains('vivid-nav-open');
+                    header.classList.toggle('vivid-header-hidden', !menuOpen && y > 160 && y > lastY + 4);
+                    if (y < lastY - 4 || y <= 160) header.classList.remove('vivid-header-hidden');
+                    lastY = y;
+                    ticking = false;
+                });
+            }, { passive: true });
+        })();
+    </script>
 
     <script>
         (function () {
