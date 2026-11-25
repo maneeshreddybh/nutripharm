@@ -6,7 +6,8 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 FONT = '/usr/share/fonts/opentype/inter/Inter-{}.otf'
 NAMES = {'multivitamin': 'Multivitamin (Liposomal)', 'vitamin-c': 'Vitamin C', 'iron': 'Iron', 'zma': 'ZMA',
          'erectile-dysfunction': 'Erectile Dysfunction', 'testoboost': 'Testoboost', 'vo2-maxx': 'VO2 Maxx',
-         'smokers-cough': "Smoker's Cough", 'biotin': 'Biotin'}
+         'smokers-cough': "Smoker's Cough", 'biotin': 'Biotin',
+         'sleep': 'Sleep Spray', 'mind-focus': 'Mind Focus Spray', 'dry-mouth': 'Dry Mouth Management'}
 
 def crop(im):
     return im.crop(im.getchannel('A').point(lambda v: 255 if v > 8 else 0).getbbox())
@@ -35,8 +36,8 @@ def main():
         tiles.append((it, im))
     fB = ImageFont.truetype(FONT.format('Bold'), 40); fS = ImageFont.truetype(FONT.format('Bold'), 32)
     fM = ImageFont.truetype(FONT.format('Medium'), 30)
-    W, H, cols = 620, 820, 5
-    S = Image.new('RGB', (W * cols, H * 2), 'white'); d = ImageDraw.Draw(S)
+    W, H, cols = 620, 820, 5  # 13 packs -> 3 rows
+    S = Image.new('RGB', (W * cols, H * ((len(tiles) + cols - 1) // cols)), 'white'); d = ImageDraw.Draw(S)
     for i, (it, im) in enumerate(tiles):
         x, y = (i % cols) * W, (i // cols) * H
         t = im.copy(); t.thumbnail((560, 660), Image.LANCZOS)

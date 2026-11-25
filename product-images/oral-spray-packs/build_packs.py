@@ -22,7 +22,7 @@ SKUS = [
        band='Metered Spray | Assorted Flavours', hue=82, smul=.95, vmul=.80, grad=((44,1,.82),(85,.95,.72)), colour='Gold → Lime'),
   dict(id='iron', l1='Oral Spray', l2='Iron', icon='blood', lipo=False,
        band='Metered Spray | Assorted Flavours', hue=358, smul=.90, vmul=.82, grad=((354,.95,.82),(26,1.0,1.0)), colour='Red → Orange'),
-  dict(id='zma', l1='Oral Spray', l2='ZMA', icon='moon', lipo=False,
+  dict(id='zma', l1='Oral Spray', l2='ZMA', icon='dumbbell', lipo=False,
        band='6Puffs/Day | Assorted Flavours', hue=226, smul=.90, vmul=.62, grad=((228,.90,.52),(195,.95,.85)), colour='Navy → Sky Blue'),
   dict(id='erectile-dysfunction', l1='Erectile', l2='Dysfunction', icon='heart', lipo=False,
        band='Metered Spray | Assorted Flavours', hue=338, smul=.85, vmul=.52, grad=((292,.80,.50),(330,.75,.90)), colour='Plum → Rose'),
@@ -34,6 +34,12 @@ SKUS = [
        band='Metered Spray | Assorted Flavours', hue=142, smul=.85, vmul=.62, grad=((128,.85,.72),(182,.95,.72)), colour='Green → Teal'),
   dict(id='biotin', l1='Oral Spray', l2='Biotin', icon='hair', lipo=False,
        band='Metered Spray | Assorted Flavours', hue=322, smul=.75, vmul=.88, grad=((338,.75,.88),(14,.75,.97)), colour='Rose → Peach'),
+  dict(id='sleep', l1='Oral Spray', l2='Sleep', icon='moon', lipo=False,
+       band='Metered Spray | Assorted Flavours', hue=262, smul=.8, vmul=.6, grad=((258,.85,.52),(282,.6,.88)), colour='Deep Violet → Lilac'),
+  dict(id='mind-focus', l1='Oral Spray', l2='Mind Focus', icon='brain', lipo=False,
+       band='Metered Spray | Assorted Flavours', hue=250, smul=.85, vmul=.7, grad=((214,.9,.72),(312,.85,.8)), colour='Blue → Magenta'),
+  dict(id='dry-mouth', l1='Oral Spray', l2='Dry Mouth', icon='water', lipo=False,
+       band='Sugar-Free | Assorted Flavours', hue=180, smul=.85, vmul=.8, grad=((188,.9,.74),(154,.75,.78)), colour='Aqua → Mint'),
 ]
 
 # ---- geometry in photo pixels (1000x665 source) ----------------------------
