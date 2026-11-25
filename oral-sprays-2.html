@@ -970,6 +970,93 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
     #vn-spray-page .overlay .modal{transition:opacity .2s ease;transform:none;}
     #vn-spray-page .overlay.flipped .modal{transform:none;}
   }
+
+  /* ---------- product detail: fit the whole panel in the viewport ----------
+     The panel is sized to the screen height and every block inside scales
+     with it, so the full spec is visible without scrolling. */
+  #vn-spray-page #product-overlay{padding:16px;}
+  #vn-spray-page #product-modal{
+    max-width:1180px;height:calc(100vh - 32px);height:calc(100dvh - 32px);max-height:860px;
+    overflow:hidden;display:flex;flex-direction:column;
+  }
+  #vn-spray-page #product-modal .modal-close{top:12px;right:12px;width:30px;height:30px;font-size:16px;}
+  #vn-spray-page #product-modal .modal-product{flex:1;min-height:0;grid-template-columns:0.82fr 1.18fr;}
+  #vn-spray-page #product-modal .modal-img{min-height:0;padding:clamp(12px,2vh,20px);gap:clamp(8px,1.2vh,12px);}
+  #vn-spray-page #product-modal .modal-main{flex:1;min-height:0;}
+  #vn-spray-page #product-modal .modal-main img{max-height:100%;max-width:100%;}
+  #vn-spray-page #product-modal .modal-thumbs{
+    grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);
+    gap:6px;flex:none;height:clamp(44px,8vh,72px);
+  }
+  #vn-spray-page #product-modal .modal-thumbs button{aspect-ratio:auto;height:100%;}
+  #vn-spray-page #product-modal .modal-info{
+    min-height:0;overflow-y:auto;display:flex;flex-direction:column;
+    padding:clamp(18px,3.2vh,34px) clamp(22px,2.6vw,36px);
+  }
+  #vn-spray-page #product-modal .modal-info .eyebrow{margin-bottom:clamp(4px,.8vh,8px);}
+  #vn-spray-page #product-modal .modal-info h3{font-size:clamp(18px,2.4vh,21px);margin:0 40px clamp(6px,1.1vh,12px) 0;}
+  #vn-spray-page #product-modal .modal-info .p-specs{margin:0 0 clamp(8px,1.4vh,16px);}
+  #vn-spray-page #product-modal .modal-info p.desc{
+    font-size:clamp(12.5px,1.75vh,15px);line-height:1.5;margin-bottom:clamp(8px,1.6vh,18px);
+  }
+  #vn-spray-page #product-modal .modal-meta{margin-bottom:clamp(8px,1.6vh,18px);}
+  #vn-spray-page #product-modal .meta-row{padding:clamp(5px,1vh,10px) 0;}
+  #vn-spray-page #product-modal .meta-value{font-size:clamp(12.5px,1.65vh,14px);line-height:1.4;}
+  #vn-spray-page #product-modal .modal-benefits-label{margin-bottom:clamp(4px,.8vh,8px);}
+  #vn-spray-page #product-modal .modal-benefits{
+    columns:2;column-gap:24px;margin-bottom:clamp(8px,1.6vh,18px);
+  }
+  #vn-spray-page #product-modal .modal-benefits li{
+    font-size:clamp(12.5px,1.65vh,14px);margin-bottom:clamp(3px,.7vh,7px);break-inside:avoid;
+  }
+  #vn-spray-page #product-modal .modal-note{
+    margin-top:0;margin-bottom:clamp(10px,1.8vh,18px);padding:clamp(7px,1.2vh,12px) 14px;
+    font-size:clamp(12px,1.55vh,13.5px);line-height:1.45;
+  }
+  #vn-spray-page #product-modal .modal-actions .btn{padding-top:clamp(10px,1.6vh,14px);padding-bottom:clamp(10px,1.6vh,14px);}
+
+  /* Tablets keep the side-by-side layout; only phones stack. */
+  @media (max-width:900px) and (min-width:601px){
+    #vn-spray-page #product-modal .modal-product{grid-template-columns:0.8fr 1.2fr;}
+    #vn-spray-page #product-modal .modal-img img{max-height:100%;}
+    #vn-spray-page #product-modal .modal-thumbs{
+      grid-auto-flow:row;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-columns:auto;
+      height:auto;grid-auto-rows:clamp(40px,5vh,60px);
+    }
+  }
+  /* Phones: image strip on top, details below. */
+  @media (max-width:600px){
+    #vn-spray-page #product-overlay{padding:8px;}
+    #vn-spray-page #product-modal{height:calc(100vh - 16px);height:calc(100dvh - 16px);}
+    #vn-spray-page #product-modal .modal-product{grid-template-columns:1fr;grid-template-rows:minmax(0,24%) minmax(0,1fr);}
+    #vn-spray-page #product-modal .modal-img{padding:10px;}
+    #vn-spray-page #product-modal .modal-img img{max-height:100%;}
+    #vn-spray-page #product-modal .modal-thumbs{display:none;}
+    #vn-spray-page #product-modal .g-nav{width:30px;height:30px;font-size:18px;}
+    #vn-spray-page #product-modal .modal-info{padding:14px 16px;}
+    #vn-spray-page #product-modal .modal-info h3{font-size:17px;}
+    /* the spec chips repeat the strength / fill / pack rows below */
+    #vn-spray-page #product-modal .modal-info .p-specs{display:none;}
+    #vn-spray-page #product-modal .modal-info p.desc{font-size:12px;line-height:1.45;margin-bottom:8px;}
+    #vn-spray-page #product-modal .meta-row{flex-direction:row;gap:10px;padding:4px 0;}
+    #vn-spray-page #product-modal .meta-label{flex:0 0 84px;font-size:9.5px;}
+    #vn-spray-page #product-modal .meta-value{font-size:12px;}
+    #vn-spray-page #product-modal .modal-benefits{column-gap:12px;}
+    #vn-spray-page #product-modal .modal-benefits li{font-size:12px;margin-bottom:2px;padding-left:18px;}
+    #vn-spray-page #product-modal .modal-note{font-size:11.5px;padding:7px 10px;margin-bottom:10px;}
+  }
+  /* Short phones (iPhone SE and similar) */
+  @media (max-width:600px) and (max-height:740px){
+    #vn-spray-page #product-modal .modal-product{grid-template-rows:minmax(0,19%) minmax(0,1fr);}
+    #vn-spray-page #product-modal .modal-info{padding:12px 14px;}
+    #vn-spray-page #product-modal .modal-info .eyebrow{display:none;}
+    #vn-spray-page #product-modal .modal-info h3{font-size:16px;margin-bottom:6px;}
+    #vn-spray-page #product-modal .modal-info p.desc{font-size:11.5px;line-height:1.4;}
+    #vn-spray-page #product-modal .meta-row{padding:3px 0;}
+    #vn-spray-page #product-modal .meta-value,#vn-spray-page #product-modal .modal-benefits li{font-size:11.5px;}
+    #vn-spray-page #product-modal .modal-note{font-size:11px;line-height:1.35;}
+    #vn-spray-page #product-modal .modal-actions .btn{padding-top:9px;padding-bottom:9px;}
+  }
 </style>
 
 <!-- ================= HERO ================= -->
