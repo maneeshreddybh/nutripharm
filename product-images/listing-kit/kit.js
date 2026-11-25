@@ -46,7 +46,20 @@
     lipo: '<circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="11"/>' + [0, 45, 90, 135, 180, 225, 270, 315].map(a => `<circle cx="${(24 + 14.5 * Math.cos(a * Math.PI / 180)).toFixed(1)}" cy="${(24 + 14.5 * Math.sin(a * Math.PI / 180)).toFixed(1)}" r="1.6" fill="#fff"/>`).join(''),
     mushroom: '<path d="M6 22C6 12 14 6 24 6s18 6 18 16z"/><path d="M18 22v14a6 6 0 0 0 12 0V22"/><circle cx="16" cy="14" r="2"/><circle cx="30" cy="12" r="2.5"/>',
     flower: '<circle cx="24" cy="18" r="4"/><path d="M24 14c-2-6 2-10 0-10s2 4 0 10M28 18c6-2 10 2 10 0s-4 2-10 0M20 18c-6-2-10 2-10 0s4 2 10 0M24 22c-2 6 2 10 0 10"/><path d="M24 22v22M24 36c-4-4-10-4-12-2M24 34c4-4 10-4 12-2"/>',
-    leaf: '<path d="M10 38C8 20 20 8 40 8c0 20-12 32-30 30z"/><path d="M10 38L30 18"/>'
+    leaf: '<path d="M10 38C8 20 20 8 40 8c0 20-12 32-30 30z"/><path d="M10 38L30 18"/>',
+    sparkle: '<path d="M22 6l3.6 10.4L36 20l-10.4 3.6L22 34l-3.6-10.4L8 20l10.4-3.6z"/><path d="M37 30l1.2 3.8L42 35l-3.8 1.2L37 40l-1.2-3.8L32 35l3.8-1.2z"/>',
+    hair: '<path d="M16 42c5-7-1.6-15 2.8-25C20.4 13 22 10 24 7"/><path d="M24 42c5-7-1.6-15 2.8-25C28.4 13 30 10 32 7"/><path d="M32 42c5-7-1.6-15 2.8-25"/>',
+    nail: '<path d="M16 44V20a8 8 0 0 1 16 0v24"/><path d="M19 22a5 5 0 0 1 10 0v6H19z"/>',
+    brain: '<path d="M24 11a6 6 0 0 0-10.8 2.6A6 6 0 0 0 9.2 24a6 6 0 0 0 4 10.2A6 6 0 0 0 24 37.2z"/><path d="M24 11a6 6 0 0 1 10.8 2.6A6 6 0 0 1 38.8 24a6 6 0 0 1-4 10.2A6 6 0 0 1 24 37.2z"/><path d="M24 11v26M17 20c2 .4 3.4 1.6 4 3.6M31 20c-2 .4-3.4 1.6-4 3.6"/>',
+    blood: '<path d="M24 5C18 14 11 21 11 29a13 13 0 0 0 26 0c0-8-7-15-13-24z"/><path d="M19 29h10M24 24v10"/>',
+    cells: '<ellipse cx="17" cy="18" rx="10" ry="7"/><ellipse cx="17" cy="18" rx="4" ry="2.5"/><ellipse cx="31" cy="32" rx="10" ry="7"/><ellipse cx="31" cy="32" rx="4" ry="2.5"/>',
+    stomach: '<path d="M18 4v8c0 4 3 6 7 6h3a10 10 0 0 1 10 10c0 9-8 16-17 16-6 0-11-4-11-9 0-4 3-7 7-7h2"/>',
+    route: '<circle cx="10" cy="38" r="4"/><circle cx="38" cy="10" r="4"/><path d="M14 38h14a6 6 0 0 0 0-12H20a6 6 0 0 1 0-12h14"/>',
+    target: '<circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="11"/><circle cx="24" cy="24" r="4"/>',
+    heart: '<path d="M24 40S9 31 9 19.6A8.4 8.4 0 0 1 24 14.4a8.4 8.4 0 0 1 15 5.2C39 31 24 40 24 40z"/>',
+    bed: '<path d="M4 38V12M4 30h40v8M44 30v-6a6 6 0 0 0-6-6H20v12"/><circle cx="12" cy="23" r="4"/>',
+    star: '<path d="M24 5l5.6 11.6L42 18.4l-9 8.8 2.2 12.6L24 34l-11.2 5.8L15 27.2l-9-8.8 12.4-1.8z"/>',
+    relax: '<path d="M8 30c4-4 8-4 12 0s8 4 12 0 6-4 8-2"/><path d="M8 38c4-4 8-4 12 0s8 4 12 0 6-4 8-2"/><path d="M18 18c0-6 6-10 12-10-1 7-5 11-12 10z"/>'
   };
   const icon = (k, cls = 'icon', style = '') => `<div class="${cls}" style="${style}"><svg viewBox="0 0 48 48">${I[k]}</svg></div>`;
   const bottle = (f = 'original') => `<img class="bottle" src="${ASSET}bottle-${f}.png" alt="">`;
@@ -62,8 +75,8 @@
     <div style="position:absolute;left:60px;top:70px;width:560px">
       <div class="eyebrow">${P.s2.eyebrow}</div>
       <h1 class="h" style="margin-top:18px">${P.s2.headline}</h1>
-      <div style="margin-top:${P.s2.headline.split('<br>').length > 2 ? 64 : 110}px;display:flex;flex-direction:column;gap:38px">
-        ${P.s2.items.map(([ic, t, s]) => `<div style="display:flex;gap:24px;align-items:center">${icon(ic)}<div><div style="font-size:28px;font-weight:700">${esc(t)}</div><div class="sub">${esc(s)}</div></div></div>`).join('')}
+      <div style="margin-top:${P.s2.items.length > 3 ? 44 : P.s2.headline.split('<br>').length > 2 ? 64 : 110}px;display:flex;flex-direction:column;gap:${P.s2.items.length > 3 ? 24 : 38}px">
+        ${P.s2.items.map(([ic, t, s]) => `<div style="display:flex;gap:24px;align-items:center">${icon(ic, 'icon', P.s2.items.length > 3 ? 'width:74px;height:74px' : '')}<div><div style="font-size:${P.s2.items.length > 3 ? 26 : 28}px;font-weight:700">${esc(t)}</div><div class="sub" style="${P.s2.items.length > 3 ? 'font-size:20px' : ''}">${esc(s)}</div></div></div>`).join('')}
       </div>
     </div>
     <div class="shadow" style="left:590px;top:900px;width:340px;height:50px"></div>
@@ -76,18 +89,18 @@
       <h1 class="h" style="margin-top:14px;font-size:58px">${P.s3.headline}</h1>
     </div>
     <div style="position:absolute;left:60px;right:60px;top:215px;display:grid;grid-template-columns:1fr 1fr;gap:30px">
-      <div class="card" style="grid-column:1/3;display:flex;gap:26px;align-items:center;padding:30px 32px">${icon(P.s3.wide[0], 'icon', 'width:68px;height:68px')}<div><div class="ct">${esc(P.s3.wide[1])}</div><div class="cs">${esc(P.s3.wide[2])}</div></div></div>
+      <div class="card" style="grid-column:1/3;display:flex;gap:26px;align-items:center;padding:30px 32px">${icon(P.s3.wide[0], 'icon', 'width:68px;height:68px')}<div><div class="ct">${esc(P.s3.wide[1])}</div>${P.s3.wide[2] ? `<div class="cs">${esc(P.s3.wide[2])}</div>` : ''}</div></div>
       ${P.s3.cards.map(([ic, t, s]) => `<div class="card" style="padding:34px 32px">${icon(ic, 'icon', 'width:68px;height:68px;margin-bottom:14px')}<div class="ct">${esc(t)}</div><div class="cs">${esc(s)}</div></div>`).join('')}
     </div>`;
 
   S.s4 = () => {
-    const n = P.s4.tiles.length, size = n > 3 ? 92 : n > 2 ? 108 : 124, top = n > 3 ? 310 : 340;
+    const n = P.s4.tiles.length, size = n > 3 ? 92 : n > 2 ? 108 : n > 1 ? 124 : 150, top = n > 3 ? 310 : n > 1 ? 340 : 430;
     const tile = ([sym, label, dose]) => {
       const inner = sym[0] === '@' ? `<svg viewBox="0 0 48 48" style="width:${size * .5}px;height:${size * .5}px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round">${I[sym.slice(1)]}</svg>`
-        : `<span style="font:800 ${sym.length > 2 ? size * .3 : size * .42}px 'Inter Display',Inter">${sym}</span>`;
+        : `<span style="font:800 ${sym.length > 3 ? size * .24 : sym.length > 2 ? size * .3 : size * .42}px 'Inter Display',Inter">${sym}</span>`;
       return `<div style="display:flex;align-items:center;gap:26px;color:#fff">
         <div style="width:${size}px;height:${size}px;border-radius:${size * .23}px;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.55);display:grid;place-items:center;flex:none">${inner}</div>
-        <div><b style="font-size:${n > 3 ? 32 : 36}px;font-weight:700">${label}</b>${dose ? `<div style="font-size:24px;font-weight:600;color:rgba(255,255,255,.85);margin-top:6px">${dose}</div>` : ''}</div></div>`;
+        <div><b style="font-size:${n > 3 ? 32 : n > 1 ? 36 : 42}px;font-weight:700">${label}</b>${dose ? `<div style="font-size:24px;font-weight:600;color:rgba(255,255,255,.85);margin-top:6px">${dose}</div>` : ''}</div></div>`;
     };
     return `<div style="position:absolute;left:60px;top:70px;width:560px;color:#fff">
         <div class="eyebrow" style="color:rgba(255,255,255,.85)">The formula</div>
@@ -148,7 +161,7 @@
   };
 
   const FL = [['Strawberry', 'strawberry', '#f0647d', '#c42a4a', '#fde8ec'], ['Mint', 'mint', '#3cc79a', '#138a65', '#e3f7f0'], ['Orange', 'orange', '#ffa53d', '#e46a0c', '#fff0de'], ['Mango', 'mango', '#ffd04a', '#e59a00', '#fff6d6']];
-  S.s8 = () => `<div style="position:absolute;left:0;right:0;top:60px;text-align:center"><div class="eyebrow">Choose your flavour</div>
+  S.s8 = () => `<div style="position:absolute;left:0;right:0;top:60px;text-align:center"><div class="eyebrow">${P.s8.eyebrow || 'Choose your flavour'}</div>
       <h1 class="h" style="font-size:56px;margin-top:12px">${P.s8.headline}</h1></div>
     <div style="position:absolute;left:40px;right:40px;top:240px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
       ${FL.map(([n, f, c1, c2, bg]) => `<div class="flv" data-flavour="${n}" style="background:${bg};border-radius:30px;height:690px;position:relative;overflow:hidden;isolation:isolate">

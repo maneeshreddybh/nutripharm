@@ -17,7 +17,9 @@ PACKS = os.path.join(ROOT, 'oral-spray-packs')
 sys.path.insert(0, PACKS)
 import build_packs as B  # noqa: E402
 
-FOLDER = {'zma': 'zma-oral-spray', 'vo2-maxx': 'vo2-maxx-oral-spray', 'multivitamin': 'multivitamin-oral-spray'}
+FOLDER = {'zma': 'zma-oral-spray', 'vo2-maxx': 'vo2-maxx-oral-spray', 'multivitamin': 'multivitamin-oral-spray',
+          'vitamin-c': 'vitamin-c-oral-spray', 'iron': 'iron-oral-spray', 'biotin': 'biotin-oral-spray',
+          'sleep': 'sleep-oral-spray', 'vitamin-b12': 'vitamin-b12-oral-spray'}
 # hue / saturation / value multipliers relative to the orange base photo
 FLAVOURS = [('strawberry', 350, .92, .92), ('mint', 160, .85, .80), ('orange', 24, 1.0, .98), ('mango', 46, 1.0, 1.0)]
 SPLIT_X = 476 * B.S        # bottle | box boundary on the 2x canvas

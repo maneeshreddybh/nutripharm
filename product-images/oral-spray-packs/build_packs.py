@@ -40,6 +40,8 @@ SKUS = [
        band='Metered Spray | Assorted Flavours', hue=250, smul=.85, vmul=.7, grad=((214,.9,.72),(312,.85,.8)), colour='Blue → Magenta'),
   dict(id='dry-mouth', l1='Oral Spray', l2='Dry Mouth', icon='water', lipo=False,
        band='Sugar-Free | Assorted Flavours', hue=180, smul=.85, vmul=.8, grad=((188,.9,.74),(154,.75,.78)), colour='Aqua → Mint'),
+  dict(id='vitamin-b12', l1='Oral Spray', l2='Vitamin B12', icon='battery', lipo=False,
+       band='6Puffs/Day | Assorted Flavours', hue=230, smul=.85, vmul=.75, grad=((196,.92,.80),(272,.75,.76)), colour='Sky Blue → Violet'),
 ]
 
 # ---- geometry in photo pixels (1000x665 source) ----------------------------
