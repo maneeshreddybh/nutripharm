@@ -42,8 +42,13 @@ function page(s) {
   for (const part of ['bottle', 'box']) {
     const g = s.geo[part];
     const [x0, x1, y0, y1] = g.name, h = y1 - y0;
-    o += text(s.l1, g.cx, y0 + h * 0.28, h * 0.40, 500, CREAM);
-    o += text(s.l2, g.cx, y0 + h * 0.78, h * 0.50, 700, CREAM, String(g.r * 2 * 0.84));
+    if (s.l1 === 'Oral Spray') {   // product name on top, "Oral Spray" underneath
+      o += text(s.l2, g.cx, y0 + h * 0.26, h * 0.50, 700, CREAM, String(g.r * 2 * 0.84));
+      o += text(s.l1, g.cx, y0 + h * 0.78, h * 0.38, 500, CREAM);
+    } else {
+      o += text(s.l1, g.cx, y0 + h * 0.28, h * 0.40, 500, CREAM);
+      o += text(s.l2, g.cx, y0 + h * 0.78, h * 0.50, 700, CREAM, String(g.r * 2 * 0.84));
+    }
     const [dx, dy, dr] = g.disc, isz = dr * 1.27;
     o += svgIcon(s.icon, dx, dy, isz, CREAM, (part === 'box' ? 4 : 2.8) * 24 / isz);
     if (!s.lipo) {

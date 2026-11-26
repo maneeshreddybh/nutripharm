@@ -94,7 +94,7 @@
     </div>`;
 
   S.s4 = () => {
-    const n = P.s4.tiles.length, size = n > 3 ? 92 : n > 2 ? 108 : n > 1 ? 124 : 150, top = n > 3 ? 310 : n > 1 ? 340 : 430;
+    const n = P.s4.tiles.length, size = n > 3 ? 92 : n > 2 ? (P.s4.sub ? 100 : 108) : n > 1 ? 124 : 150, top = (n > 3 ? 310 : n > 1 ? 340 : 430) + (P.s4.sub ? 44 : 0);
     const tile = ([sym, label, dose]) => {
       const inner = sym[0] === '@' ? `<svg viewBox="0 0 48 48" style="width:${size * .5}px;height:${size * .5}px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round">${I[sym.slice(1)]}</svg>`
         : `<span style="font:800 ${sym.length > 3 ? size * .24 : sym.length > 2 ? size * .3 : size * .42}px 'Inter Display',Inter">${sym}</span>`;
@@ -105,6 +105,7 @@
     return `<div style="position:absolute;left:60px;top:70px;width:560px;color:#fff">
         <div class="eyebrow" style="color:rgba(255,255,255,.85)">The formula</div>
         <h1 class="h" style="color:#fff;margin-top:16px">${P.s4.headline}</h1>
+        ${P.s4.sub ? `<div style="margin-top:16px;font-size:22px;line-height:1.35;font-weight:600;color:rgba(255,255,255,.88);max-width:520px">${P.s4.sub}</div>` : ''}
       </div>
       <div style="position:absolute;left:60px;top:${top}px;display:flex;flex-direction:column;gap:${n > 3 ? 8 : 18}px">
         ${P.s4.tiles.map(tile).join(`<div style="font-size:${n > 3 ? 32 : 40}px;font-weight:300;color:#fff;margin-left:${size / 2 - 10}px;line-height:1">+</div>`)}
@@ -142,7 +143,7 @@
       <div style="position:absolute;left:198px;top:${top - 442}px;width:145px">${bottle()}</div>
       <div style="position:absolute;left:600px;top:290px;width:260px">${tablets}</div>
       <div style="position:absolute;left:80px;top:${top}px;width:390px;color:#fff">
-        <div style="font-size:30px;font-weight:800;margin-bottom:18px">${P.short} Oral Spray</div><ul style="list-style:none;display:flex;flex-direction:column;gap:14px">${li(P.s6.pros, true)}</ul></div>
+        <div style="font-size:30px;font-weight:800;margin-bottom:18px">${P.s6.title || P.short + ' Oral Spray'}</div><ul style="list-style:none;display:flex;flex-direction:column;gap:14px">${li(P.s6.pros, true)}</ul></div>
       <div style="position:absolute;left:540px;top:${top}px;width:390px">
         <div style="font-size:30px;font-weight:800;margin-bottom:18px;color:#454b63">Tablets</div><ul style="list-style:none;display:flex;flex-direction:column;gap:14px">${li(P.s6.cons, false)}</ul></div>`;
   };
@@ -167,7 +168,7 @@
       ${FL.map(([n, f, c1, c2, bg]) => `<div class="flv" data-flavour="${n}" style="background:${bg};border-radius:30px;height:690px;position:relative;overflow:hidden;isolation:isolate">
         <div class="blob" style="left:5px;top:150px;width:210px;height:210px;background:${c1};opacity:.18"></div>
         <div class="shadow" style="left:20px;top:560px;width:180px;height:34px"></div>
-        <div style="position:absolute;left:18px;top:40px;width:190px">${bottle(f)}</div>
+        <div style="position:absolute;left:18px;top:40px;width:190px">${bottle()}</div>
         <div style="position:absolute;left:0;right:0;bottom:30px;text-align:center"><div style="display:inline-block;background:${c2};color:#fff;font-weight:800;font-size:24px;padding:12px 26px;border-radius:999px">${n}</div></div>
       </div>`).join('')}
     </div>`;
@@ -231,8 +232,11 @@
   };
   const layer = (el, svg, w = 1000, h = 1000) => { const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     s.setAttribute('viewBox', `0 0 ${w} ${h}`); s.setAttribute('class', 'deco'); s.setAttribute('preserveAspectRatio', 'none'); s.innerHTML = svg; el.insertBefore(s, el.firstChild); };
+  const MOTIF = window.MOTIFS ? window.MOTIFS(q.get('p'), C) : null;
   ['s1', 's1b', 's2', 's3', 's4', 's5', 's6', 's7', 's8'].forEach(id => {
-    const t = forced || MIX[id]; const art = THEME[t] && THEME[t][id];
+    const t = forced || MIX[id];
+    // benefit-themed background for the product (default), generic theme otherwise
+    const art = (!forced && MOTIF && MOTIF[id]) || (THEME[t] && THEME[t][id]);
     if (art) layer(document.getElementById(id), art);
     if (id === 's8' && t === 'fruit') document.querySelectorAll('#s8 .flv').forEach(c => layer(c, THEME.fruit.card[c.dataset.flavour], 218, 690));
   });
