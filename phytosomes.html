@@ -607,16 +607,30 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
   #vn-phyto-page .btn-ghost:hover{background:var(--ink);color:#fff;}
   #vn-phyto-page .btn-full{width:100%;justify-content:center;}
 
-  /* ---------- HERO (white background, left text/CTA, right full image) ---------- */
+  /* ---------- HERO (soft botanical background, left text/CTA, right phytosome visual) ---------- */
   #vn-phyto-page .hero{
-    background:#ffffff;
-    padding:64px 0 0;
+    position:relative;
+    background:#eee9da url(assets/products/hero-phytosome-bg.webp) right bottom/cover no-repeat;
+    padding:64px 0 104px;
     overflow:hidden;
   }
-  #vn-phyto-page .hero-grid{
-    display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+  /* soft wash on the left so the text stays readable at every width */
+  #vn-phyto-page .hero::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(90deg,rgba(246,242,232,.7) 0%,rgba(242,240,228,.35) 40%,rgba(242,240,228,0) 60%);
   }
-  #vn-phyto-page .hero-text{padding-bottom:64px;}
+  #vn-phyto-page .hero-grid{
+    position:relative;
+    display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;
+  }
+  #vn-phyto-page .hero-text{padding-bottom:0;}
+  /* phytosome visual: transparent, feathered edges blend into the background */
+  #vn-phyto-page .hero-image{display:flex;align-items:center;justify-content:center;}
+  #vn-phyto-page .hero-image img{
+    width:140%;max-width:none;height:auto;margin:-6% -28% -6% -12%;
+    animation:phytoFloat 8s ease-in-out infinite;
+  }
+  @keyframes phytoFloat{50%{transform:translateY(-10px);}}
   #vn-phyto-page .hero-text .eyebrow{color:var(--green-deep);}
   #vn-phyto-page .hero-text h1{
     color:var(--ink);font-size:clamp(30px,3.6vw,46px);line-height:1.1;
@@ -651,27 +665,6 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
   }
   #vn-phyto-page .hero-crumb a{color:var(--charcoal-text);text-decoration:underline;text-underline-offset:3px;}
 
-  /* hero image shown plain — no card/box background, no padding,
-     no border-radius. Just the full, uncropped image, centered. */
-  #vn-phyto-page .hero-image{
-    position:relative;
-    align-self:stretch;
-    min-height:360px;
-    max-height:440px;
-    overflow:hidden;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-  #vn-phyto-page .hero-image img{
-    position:static;
-    width:auto;
-    height:auto;
-    max-width:100%;
-    max-height:440px; /* keeps full image visible, no cropping */
-    object-fit:contain;
-    margin:0 auto;
-  }
   /* entrance motion */
   @keyframes cordyFadeUp{
     from{opacity:0;transform:translateY(14px);}
@@ -897,10 +890,11 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
 
   /* ---------- responsive ---------- */
   @media (max-width:900px){
-    #vn-phyto-page .hero-grid{grid-template-columns:1fr;}
-    #vn-phyto-page .hero-text{padding-bottom:0;}
-    #vn-phyto-page .hero-image{min-height:260px;max-height:340px;order:-1;}
-    #vn-phyto-page .hero-image img{max-height:340px;}
+    #vn-phyto-page .hero{padding:24px 0 96px;background-position:70% bottom;}
+    #vn-phyto-page .hero::before{background:linear-gradient(180deg,rgba(246,242,232,0) 0%,rgba(246,242,232,.55) 40%,rgba(246,242,232,.55) 80%,rgba(246,242,232,0) 100%);}
+    #vn-phyto-page .hero-grid{grid-template-columns:1fr;gap:8px;}
+    #vn-phyto-page .hero-image{order:-1;}
+    #vn-phyto-page .hero-image img{width:130%;max-width:680px;margin:-8% auto -6%;}
     #vn-phyto-page .hero-stats{gap:24px;}
     #vn-phyto-page .heritage-grid{grid-template-columns:1fr;gap:32px;}
     #vn-phyto-page .why-grid{grid-template-columns:repeat(2,1fr);}
@@ -916,8 +910,7 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
     #vn-phyto-page .field-row{grid-template-columns:1fr;}
     #vn-phyto-page .modal-info,#vn-phyto-page .modal-form{padding:30px 22px;}
     #vn-phyto-page .hero-stats{gap:20px 28px;}
-    #vn-phyto-page .hero-image{min-height:220px;max-height:280px;}
-    #vn-phyto-page .hero-image img{max-height:280px;}
+    #vn-phyto-page .hero{padding:16px 0 88px;}
     #vn-phyto-page .meta-row{flex-direction:column;gap:4px;}
     #vn-phyto-page .meta-label{flex:none;}
     #vn-phyto-page .modal-img img{max-height:260px;}
@@ -1073,8 +1066,8 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
       <div class="hero-crumb"><a href="index.html">Home</a> / Phytosome range</div>
     </div>
     <div class="hero-image">
-      <img decoding="async" src="assets/products/hero-phytosome-technology.jpg" alt="Phytosome technology — botanical actives complexed with phospholipids"
-        loading="eager" fetchpriority="high" width="960" height="720">
+      <img decoding="async" src="assets/products/hero-phytosome-visual.webp" alt="Phytosome — botanical actives enclosed in a phospholipid bilayer"
+        loading="eager" fetchpriority="high" width="1176" height="712">
     </div>
   </div>
 </section>
