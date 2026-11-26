@@ -31,6 +31,14 @@ window.MOTIFS = function (pid, C) {
     broccoli: () => `<path d="M-8 10h16l6 40h-28z" fill="#8bc34a"/><g fill="#3e8e41">${[[-26, -6, 20], [0, -20, 24], [26, -6, 20], [-12, 10, 18], [14, 10, 18]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}"/>`).join('')}</g><g fill="#5cb85c">${[[-30, -12, 7], [-2, -30, 8], [22, -14, 7], [6, -6, 6]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}"/>`).join('')}</g>`,
     berries: () => `<g>${[[-20, 8], [16, 10], [-2, -18], [24, -20], [-26, -24]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="18" fill="#4b5fc1"/><circle cx="${x - 6}" cy="${y - 6}" r="5" fill="#fff" opacity=".35"/><path d="M${x - 4} ${y - 16}l4 4 4-4" stroke="#2c3a80" stroke-width="2" fill="none"/>`).join('')}</g>`,
     capsule: (c) => `<g transform="rotate(-35)"><rect x="-46" y="-18" width="92" height="36" rx="18" fill="${c}"/><path d="M0 -18h28a18 18 0 0 1 0 36H0z" fill="#fff" opacity=".55"/></g>`,
+    lungs: (c, f) => `<g fill="${f}" stroke="${c}" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M-8 -20C-24 -26-44 -6-44 26c0 12 8 20 20 18 12-2 16-10 16-24z"/><path d="M8 -20C24 -26 44 -6 44 26c0 12-8 20-20 18-12-2-16-10-16-24z"/></g><path d="M0 -50V-8M0 -14L-8 -4M0 -14L8 -4" stroke="${c}" stroke-width="4" fill="none" stroke-linecap="round"/>`,
+    swirl: (c) => `<g fill="none" stroke="${c}" stroke-width="4" stroke-linecap="round"><path d="M-50 -14H18a14 14 0 1 0-14-14"/><path d="M-50 4H34a12 12 0 1 1-12 12"/><path d="M-40 22H2"/></g>`,
+    bulb: (c, f) => `<path d="M0 -48a30 30 0 0 0-18 54c4 4 6 8 6 14h24c0-6 2-10 6-14A30 30 0 0 0 0 -48z" fill="${f}" stroke="${c}" stroke-width="4"/><path d="M-12 30h24M-9 40h18" stroke="${c}" stroke-width="4" stroke-linecap="round"/><path d="M-8 2l8-10 8 10" fill="none" stroke="${c}" stroke-width="3"/>`,
+    heart: (c, f) => `<path d="M0 40S-46 12-46 -14a24 24 0 0 1 46-10 24 24 0 0 1 46 10C46 12 0 40 0 40z" fill="${f}" stroke="${c}" stroke-width="4" stroke-linejoin="round"/>`,
+    male: (c) => `<g fill="none" stroke="${c}" stroke-width="6" stroke-linecap="round"><circle cx="-10" cy="10" r="26"/><path d="M10 -10L40 -40M20 -40H40V-20"/></g>`,
+    flame: (c, f) => `<path d="M0 -50C10 -24 34 -14 34 14A34 34 0 0 1-34 14C-34 -6-18 -16-14 -34-6 -22 4 -26 0 -50z" fill="${f}" stroke="${c}" stroke-width="4" stroke-linejoin="round"/><path d="M0 4c6 10 14 14 14 24a14 14 0 0 1-28 0c0-8 8-12 14-24z" fill="${c}" opacity=".5"/>`,
+    bubble: (c) => { const id = uid('b'); return `<defs><radialGradient id="${id}" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="${c}" stop-opacity=".35"/></radialGradient></defs><circle r="46" fill="url(#${id})" stroke="${c}" stroke-width="2.5"/><ellipse cx="-16" cy="-18" rx="10" ry="6" fill="#fff" opacity=".8" transform="rotate(-35 -16 -18)"/>`; },
+    target: (c) => `<g fill="none" stroke="${c}" stroke-width="4"><circle r="44"/><circle r="28"/></g><circle r="10" fill="${c}"/>`,
     hexgem: (c, f, t) => `<path d="M0 -48L42 -24V24L0 48-42 24V-24z" fill="${f}" stroke="${c}" stroke-width="4"/><text y="12" text-anchor="middle" font-family="Inter" font-weight="800" font-size="32" fill="${c}">${t}</text>`
   };
 
@@ -68,6 +76,11 @@ window.MOTIFS = function (pid, C) {
     iron: { items: ['rbcs', 'rbc', 'rbcs', 'leaf', 'rbc', 'rbcs', 'rbc'], wash: (d) => W.vessels(d ? '#fff' : deep, .05) },
     biotin: { items: ['hair', 'sparkle', 'flower', 'hair', 'sparkle', 'flower', 'sparkle'], wash: (d) => W.waves(d ? '#fff' : deep, .12) },
     sleep: { items: ['moon', 'cloud', 'star', 'zzz', 'cloud', 'star', 'sparkle'], wash: (d) => W.stars(d ? '#fff' : deep, .6, 90) },
+    'smokers-cough': { items: ['leaf', 'lungs', 'swirl', 'leaf', 'lungs', 'swirl', 'leaf'], wash: (d) => W.waves(d ? '#fff' : bright, .14) },
+    'mind-focus': { items: ['bulb', 'neuron', 'target', 'sparkle', 'bulb', 'neuron', 'sparkle'], wash: (d) => W.network(d ? '#fff' : deep, .1) },
+    'erectile-dysfunction': { items: ['heart', 'pulse', 'heart', 'sparkle', 'heart', 'pulse', 'sparkle'], wash: (d) => W.vessels(d ? '#fff' : deep, .05) },
+    testoboost: { items: ['male', 'flame', 'bolt', 'dumbbell', 'flame', 'male', 'bolt'], wash: (d) => W.hexes(d ? '#fff' : deep, .05) },
+    'dry-mouth': { items: ['bubble', 'drop', 'leaf', 'bubble', 'drop', 'bubble', 'leaf'], wash: (d) => W.juice(d ? '#fff' : bright, .2) + W.waves(d ? '#fff' : bright, .1) },
     'vitamin-b12': { items: ['bolt', 'neuron', 'sparkle', 'bolt', 'neuron', 'sparkle', 'bolt'], wash: (d) => W.network(d ? '#fff' : deep, .1) }
   };
   const P = PLAN[pid]; if (!P) return null;
@@ -81,7 +94,9 @@ window.MOTIFS = function (pid, C) {
       case 'citrusL': return E.citrus('#8cc63f', '#f4fbe4');
       case 'citrusY': return E.citrus('#f5cf2b', '#fffbe0');
       case 'leaf': return E.leaf(d ? 'rgba(255,255,255,.7)' : '#4caf50');
-      case 'drop': return E.drop(d ? 'rgba(255,255,255,.75)' : '#ffb63d');
+      case 'drop': return E.drop(d ? 'rgba(255,255,255,.75)' : (pid === 'dry-mouth' ? '#6fd0e0' : '#ffb63d'));
+      case 'bubble': return E.bubble(d ? '#ffffff' : bright);
+      case 'swirl': case 'male': case 'target': return E[kind](d ? '#ffffff' : deep);
       case 'rbc': return E.rbc(d ? '#ffd7d2' : '#d8323f');
       case 'rbcs': return g(-22, -10, 0, .7, E.rbc(d ? '#ffd7d2' : '#d8323f')) + g(26, 18, 30, .55, E.rbc(d ? '#ffd7d2' : '#c42a3a')) + g(-6, 34, -20, .45, E.rbc(d ? '#ffd7d2' : '#e0505a'));
       case 'sparkle': case 'star': return E[kind](solid);
