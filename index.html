@@ -907,6 +907,42 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
         .vtp-flip-back p { font-size: 11.5px; line-height: 1.6; }
     }
 
+    /* ---- Bigger flip cards that always fit on screen ----
+       The cards get more of the row (narrower copy column), each card is
+       capped to the visible screen height, and the back-face text is sized
+       from the card's own width (container units) so it fits at any size. */
+    .vtp-inner { max-width: 1400px; }
+    .vtp-layout { grid-template-columns: minmax(260px, 0.42fr) 1.58fr; gap: 36px; }
+    .vtp-grid { gap: 14px; align-items: start; }
+    .vtp-card-media {
+        container-type: inline-size;
+        /* card is 1:1.9 — keep the whole card inside the viewport */
+        max-width: calc((100vh - 120px) / 1.9);
+        max-width: calc((100svh - 120px) / 1.9);
+        margin: 0 auto;
+    }
+    .vtp-flip-front { aspect-ratio: 1 / 1.9; }
+    .vtp-flip-back { padding: 11cqw 9cqw; }
+    .vtp-flip-back h3 {
+        font-size: clamp(13px, 7.6cqw, 21px);
+        margin-bottom: 4.5cqw; padding-bottom: 4.5cqw;
+    }
+    .vtp-flip-back p { font-size: clamp(11px, 6cqw, 16px); line-height: 1.6; }
+    /* Up to 1100px the heading sits above the cards so the cards get the
+       full width; tablets use a 2 x 2 grid of large cards. */
+    @media (max-width: 1100px) {
+        .vtp-layout { grid-template-columns: 1fr; gap: 30px; }
+        .vtp-copy-col { position: static; text-align: center; }
+        .vtp-copy-col p { margin-left: auto; margin-right: auto; max-width: 620px; }
+    }
+    @media (max-width: 900px) {
+        .vtp-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    }
+    @media (max-width: 640px) {
+        .vtp-tech { padding: 52px 14px; }
+        .vtp-grid { gap: 10px; }
+    }
+
     /* ================= OUR SOLUTIONS (tabbed categories + scrollable product row) ================= */
     .vso-solutions { background: #fff; padding: 80px 40px; }
     .vso-inner { max-width: 1180px; margin: 0 auto; }
