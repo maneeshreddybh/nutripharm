@@ -948,6 +948,113 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
     #vn-tinct-page .overlay .modal{transition:opacity .2s ease;transform:none;}
     #vn-tinct-page .overlay.flipped .modal{transform:none;}
   }
+
+  /* ---------- product detail: fit the whole panel in the viewport ----------
+     The panel is sized to the screen height and every block inside scales
+     with it, so the full spec is visible without scrolling. The image column
+     takes half the panel so the product shot is as large as possible. */
+  #vn-tinct-page #product-overlay{padding:16px;}
+  #vn-tinct-page #product-modal{
+    max-width:1360px;height:calc(100vh - 32px);height:calc(100dvh - 32px);max-height:960px;
+    overflow:hidden;display:flex;flex-direction:column;
+  }
+  #vn-tinct-page #product-modal .modal-close{top:12px;right:12px;width:32px;height:32px;font-size:16px;}
+  #vn-tinct-page #product-modal .modal-product{flex:1;min-height:0;grid-template-columns:1fr 1fr;}
+  #vn-tinct-page #product-modal .modal-img{
+    min-height:0;min-width:0;padding:clamp(10px,1.6vh,16px);gap:clamp(8px,1.2vh,12px);
+    display:flex;flex-direction:column;align-items:stretch;justify-content:center;
+  }
+  #vn-tinct-page #product-modal .modal-img > img,
+  #vn-tinct-page #product-modal .modal-main img{
+    width:100%;height:100%;max-width:none;max-height:none;object-fit:contain;
+    flex:1;min-height:0;display:block;
+  }
+  #vn-tinct-page #product-modal .modal-main{flex:1;min-height:0;}
+  #vn-tinct-page #product-modal .modal-img.has-gallery .modal-main img{border-radius:0;}
+  #vn-tinct-page #product-modal .modal-thumbs{
+    grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);
+    gap:6px;flex:none;height:clamp(44px,7.5vh,72px);
+  }
+  #vn-tinct-page #product-modal .modal-thumbs button{aspect-ratio:auto;height:100%;}
+  #vn-tinct-page #product-modal .modal-info{
+    min-height:0;overflow-y:auto;display:flex;flex-direction:column;
+    padding:clamp(18px,3.2vh,34px) clamp(20px,2.4vw,34px);
+  }
+  #vn-tinct-page #product-modal .modal-info .eyebrow{margin-bottom:clamp(4px,.8vh,8px);}
+  #vn-tinct-page #product-modal .modal-info h3{font-size:clamp(18px,2.4vh,21px);margin:0 40px clamp(6px,1.1vh,12px) 0;}
+  #vn-tinct-page #product-modal .modal-info .p-specs{margin:0 0 clamp(8px,1.4vh,16px);}
+  #vn-tinct-page #product-modal .modal-info p.desc{
+    font-size:clamp(12.5px,1.75vh,15px);line-height:1.5;margin-bottom:clamp(8px,1.6vh,18px);
+  }
+  #vn-tinct-page #product-modal .modal-meta{margin-bottom:clamp(8px,1.6vh,18px);}
+  #vn-tinct-page #product-modal .meta-row{padding:clamp(5px,1vh,10px) 0;}
+  #vn-tinct-page #product-modal .meta-label{flex-basis:118px;}
+  #vn-tinct-page #product-modal .meta-value{font-size:clamp(12.5px,1.65vh,14px);line-height:1.4;}
+  #vn-tinct-page #product-modal .modal-benefits-label{margin-bottom:clamp(4px,.8vh,8px);}
+  #vn-tinct-page #product-modal .modal-benefits{display:grid;grid-template-columns:1fr 1fr;column-gap:24px;margin-bottom:clamp(8px,1.6vh,18px);}
+  #vn-tinct-page #product-modal .modal-benefits li{
+    font-size:clamp(12.5px,1.65vh,14px);margin-bottom:clamp(3px,.7vh,7px);
+  }
+  #vn-tinct-page #product-modal .modal-note{
+    margin-top:0;margin-bottom:clamp(10px,1.8vh,18px);padding:clamp(7px,1.2vh,12px) 14px;
+    font-size:clamp(12px,1.55vh,13.5px);line-height:1.45;
+  }
+  #vn-tinct-page #product-modal .modal-actions .btn{padding-top:clamp(10px,1.6vh,14px);padding-bottom:clamp(10px,1.6vh,14px);}
+
+  /* Narrower or shorter laptop screens: give the text a little more width. */
+  @media (min-width:901px) and (max-width:1199px), (min-width:901px) and (max-height:780px){
+    #vn-tinct-page #product-modal .modal-product{grid-template-columns:0.88fr 1.12fr;}
+  }
+  @media (min-width:901px) and (max-width:1100px){
+    #vn-tinct-page #product-modal .modal-product{grid-template-columns:0.76fr 1.24fr;}
+  }
+  /* Tablets keep the side-by-side layout. */
+  @media (max-width:900px) and (min-width:601px){
+    #vn-tinct-page #product-modal{max-height:none;}
+    #vn-tinct-page #product-modal .modal-product{grid-template-columns:0.85fr 1.15fr;}
+    #vn-tinct-page #product-modal .modal-info{padding:22px 20px;}
+    #vn-tinct-page #product-modal .modal-info p.desc{font-size:13px;}
+    #vn-tinct-page #product-modal .meta-label{flex-basis:96px;}
+    #vn-tinct-page #product-modal .meta-value,#vn-tinct-page #product-modal .modal-benefits li{font-size:12.5px;}
+    #vn-tinct-page #product-modal .modal-note{font-size:12px;}
+    #vn-tinct-page #product-modal .modal-thumbs{
+      grid-auto-flow:row;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-columns:auto;
+      height:auto;grid-auto-rows:clamp(40px,5vh,60px);
+    }
+  }
+  /* Phones: image on top, details below. */
+  @media (max-width:600px){
+    #vn-tinct-page #product-overlay{padding:8px;}
+    #vn-tinct-page #product-modal{height:calc(100vh - 16px);height:calc(100dvh - 16px);max-height:none;}
+    #vn-tinct-page #product-modal .modal-product{grid-template-columns:1fr;grid-template-rows:minmax(16%,1fr) minmax(0,auto);}
+    #vn-tinct-page #product-modal .modal-img{padding:8px;}
+    #vn-tinct-page #product-modal .modal-thumbs{display:none;}
+    #vn-tinct-page #product-modal .g-nav{width:30px;height:30px;font-size:18px;}
+    #vn-tinct-page #product-modal .modal-info{padding:12px 16px 14px;}
+    #vn-tinct-page #product-modal .modal-info h3{font-size:17px;}
+    /* the spec chips repeat the detail rows below */
+    #vn-tinct-page #product-modal .modal-info .p-specs{display:none;}
+    #vn-tinct-page #product-modal .modal-info p.desc{font-size:11.5px;line-height:1.42;margin-bottom:8px;}
+    #vn-tinct-page #product-modal .meta-row{flex-direction:row;gap:10px;padding:4px 0;}
+    #vn-tinct-page #product-modal .meta-label{flex:0 0 84px;font-size:9.5px;}
+    #vn-tinct-page #product-modal .meta-value{font-size:12px;}
+    #vn-tinct-page #product-modal .modal-benefits{column-gap:12px;}
+    #vn-tinct-page #product-modal .modal-benefits li{font-size:12px;margin-bottom:2px;padding-left:18px;}
+    #vn-tinct-page #product-modal .modal-note{font-size:11.5px;padding:7px 10px;margin-bottom:8px;}
+  }
+  /* Short phones (iPhone SE and similar) */
+  @media (max-width:600px) and (max-height:740px){
+    #vn-tinct-page #product-modal .modal-product{grid-template-rows:minmax(13%,1fr) minmax(0,auto);}
+    #vn-tinct-page #product-modal .modal-info p.desc{font-size:11px;line-height:1.38;}
+    #vn-tinct-page #product-modal .modal-info{padding:12px 14px;}
+    #vn-tinct-page #product-modal .modal-info .eyebrow{display:none;}
+    #vn-tinct-page #product-modal .modal-info h3{font-size:16px;margin-bottom:6px;}
+    #vn-tinct-page #product-modal .meta-row{padding:3px 0;}
+    #vn-tinct-page #product-modal .meta-value,#vn-tinct-page #product-modal .modal-benefits li{font-size:11.5px;}
+    #vn-tinct-page #product-modal .modal-note{font-size:11px;line-height:1.35;}
+    #vn-tinct-page #product-modal .modal-actions .btn{padding-top:9px;padding-bottom:9px;}
+  }
+  /* end product-fit */
 </style>
 
 <!-- ================= HERO ================= -->
@@ -1165,11 +1272,19 @@ body, button, input, select, textarea, .ast-button, .ast-custom-button {
   var buyOverlay = document.getElementById('buy-overlay');
   var activeProductId = null;
 
+  // Popup uses tightly-cropped copies of the wide-margin product shots so the
+  // product fills the image panel. Cards and the homepage keep the originals.
+  var POPUP_CROPPED = ['Tablets','Metabolic-Wellness','Respiratory-Health','Sleep-Stress-Relief',
+    'Performance-Energy','Softgels','Sachets-Stick-Packs','Womens-Health'];
+  function popupImg(src){
+    var m = /^assets\/wp\/uploads\/2026\/07\/([\w-]+)\.webp$/.exec(src);
+    return (m && POPUP_CROPPED.indexOf(m[1]) !== -1) ? 'assets/products/popup/' + m[1] + '.webp' : src;
+  }
   function openProductModal(id){
     var p = products.find(function(x){return x.id === id;});
     if(!p) return;
     activeProductId = id;
-    document.getElementById('modal-img').src = p.img;
+    document.getElementById('modal-img').src = popupImg(p.img);
     document.getElementById('modal-img').alt = p.name;
     document.getElementById('modal-title').textContent = p.name;
     document.getElementById('modal-desc').textContent = p.desc;
