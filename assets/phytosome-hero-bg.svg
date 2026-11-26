@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="glow" cx="72%" cy="40%" r="55%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bub" cx="35%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#fff8d6"/>
+      <stop offset=".45" stop-color="#f1cf5c"/>
+      <stop offset="1" stop-color="#c99a1e"/>
+    </radialGradient>
+    <radialGradient id="node" cx="35%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#9cc48a" stop-opacity=".55"/>
+    </radialGradient>
+    <linearGradient id="waveA" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7fb35f" stop-opacity=".22"/>
+      <stop offset=".55" stop-color="#4e9a3c" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#2f7d32" stop-opacity=".45"/>
+    </linearGradient>
+    <linearGradient id="waveB" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".2"/>
+      <stop offset=".6" stop-color="#ffffff" stop-opacity=".85"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity=".5"/>
+    </linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="blurBig"><feGaussianBlur stdDeviation="14"/></filter>
+  </defs>
+
+  <rect width="1600" height="700" fill="url(#glow)"/>
+
+  <!-- molecule structures (top right) -->
+  <g stroke="#8fb97c" stroke-opacity=".45" stroke-width="3" fill="url(#node)">
+    <path d="M1180 40 L1240 75 L1300 40 M1240 75 L1240 140 M1300 40 L1360 75 L1420 40" fill="none"/>
+    <circle cx="1180" cy="40" r="16"/><circle cx="1240" cy="75" r="20"/><circle cx="1300" cy="40" r="15"/>
+    <circle cx="1240" cy="140" r="17"/><circle cx="1360" cy="75" r="18"/><circle cx="1420" cy="40" r="14"/>
+    <path d="M1480 120 L1530 90 L1580 120 L1580 180 M1530 90 L1530 30" fill="none"/>
+    <circle cx="1480" cy="120" r="15"/><circle cx="1530" cy="90" r="18"/><circle cx="1580" cy="120" r="14"/>
+    <circle cx="1580" cy="180" r="12"/><circle cx="1530" cy="30" r="13"/>
+  </g>
+  <g stroke="#8fb97c" stroke-opacity=".25" stroke-width="2" fill="url(#node)" opacity=".6" filter="url(#blur)">
+    <path d="M760 30 L810 60 L860 30 M810 60 L810 115" fill="none"/>
+    <circle cx="760" cy="30" r="14"/><circle cx="810" cy="60" r="17"/><circle cx="860" cy="30" r="12"/><circle cx="810" cy="115" r="14"/>
+  </g>
+
+  <!-- golden bubbles -->
+  <g fill="url(#bub)">
+    <circle cx="905" cy="200" r="13" opacity=".8"/>
+    <circle cx="880" cy="320" r="9" opacity=".7"/>
+    <circle cx="700" cy="560" r="14" opacity=".8"/>
+    <circle cx="1530" cy="260" r="12" opacity=".75"/>
+    <circle cx="1490" cy="420" r="8" opacity=".6"/>
+    <circle cx="1100" cy="560" r="7" opacity=".55"/>
+    <circle cx="1440" cy="150" r="6" opacity=".55"/>
+  </g>
+  <g fill="#ffffff">
+    <circle cx="901" cy="196" r="3.5" opacity=".9"/><circle cx="695" cy="555" r="4" opacity=".9"/>
+    <circle cx="1526" cy="256" r="3.5" opacity=".9"/>
+  </g>
+
+  <!-- soft leaves in corners -->
+  <g fill="#5e9e45" opacity=".35" filter="url(#blurBig)">
+    <path d="M-40 560 C 40 470, 170 470, 230 540 C 150 600, 40 620, -40 560 Z"/>
+    <path d="M1520 470 C 1560 390, 1640 370, 1680 420 C 1650 500, 1580 520, 1520 470 Z"/>
+  </g>
+  <g fill="#4f9a3a" opacity=".55">
+    <path d="M-10 690 C 40 610, 150 600, 210 640 C 150 690, 60 710, -10 690 Z"/>
+  </g>
+  <path d="M-10 690 C 70 660, 140 645, 205 641" stroke="#cfe7bf" stroke-opacity=".6" stroke-width="2" fill="none"/>
+
+  <!-- flowing waves along the bottom -->
+  <path d="M0 610 C 300 560, 600 640, 900 600 S 1400 520, 1600 540 L1600 700 L0 700 Z" fill="url(#waveA)"/>
+  <path d="M0 640 C 350 600, 650 670, 1000 625 S 1450 560, 1600 585 L1600 600 C 1450 585, 1250 620, 1000 650 S 350 625, 0 665 Z" fill="url(#waveB)"/>
+  <path d="M0 675 C 400 640, 800 700, 1200 660 S 1500 630, 1600 640 L1600 700 L0 700 Z" fill="#3f8a34" fill-opacity=".28"/>
+</svg>
